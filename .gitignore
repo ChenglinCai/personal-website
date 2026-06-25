@@ -1,0 +1,17 @@
+.DS_Store
+**/.DS_Store
+
+# dependencies (any subproject)
+**/node_modules/
+
+# env / keys (opt-in only)
+.env*
+*.pem
+*.key
+
+# build outputs (common)
+**/.next/
+**/out/
+**/build/
+**/dist/
+**/coverage/

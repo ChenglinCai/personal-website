@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Map our loaded fonts onto Tailwind utilities:
+   - the default `font-sans` (and body text) uses Hanken Grotesk
+   - `font-display` uses Syne (for headings)
+   - `font-cosmic` uses Orbitron (home hero title) */
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-cosmic: var(--font-cosmic);
+}
+
+body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  background-color: #06060c;
+}

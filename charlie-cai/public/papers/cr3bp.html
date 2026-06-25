@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Research and Generalization on the Planar Circular Restricted Three-Body Problem</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Research and Generalization on the Planar Circular
+Restricted Three-Body Problem</h1>
+</header>
+<p><strong>Research and Generalization on the Planar Circular Restricted
+Three-Body Problem</strong></p>
+<p><strong>Chenglin Cai</strong></p>
+<p><strong>Abstract</strong></p>
+<p>The coplanar circular restricted three-body problem has important
+applications in the study of celestial bodies in the solar system and
+the design of space telescope orbits, among which the five Lagrangian
+equilibrium points are the most important in research and application.
+We first study the stability of the Lagrangian equilibrium points of the
+coplanar circular restricted three-body problem and determine the
+stability conditions and orbit adjustment strategies. An own-developed
+numerical integrator was used to simulate three-body motion; a
+state-modification algorithm was developed to station-keep the satellite
+in orbit (increase stability and prevent it from flying away) and to
+simultaneously fix errors in conserved properties; novel iterative
+experiments were conducted to explore the impact of the mass ratio of
+the two dominant bodies as well as the impact of the initial
+displacement and velocity perturbation of the third body on orbital
+stability near Lagrange points. Our simulation concludes that the
+stability of unstable Lagrange point orbits increases as the mass ratio
+increases, decreases as initial disturbance increases, and can be
+enhanced by effective station-keeping operations.</p>
+<p>Then, we further study the generalization of the coplanar circular
+restricted three-body problem. Under the condition that the third
+celestial body does not affect the movement of the other two celestial
+bodies, the motion of the third celestial body is studied after breaking
+the “coplanar” and “circular” constraints by introducing the inclination
+angle and eccentricity of orbits. Here, we use MERCURY, a widely-used
+N-body numerical integrator in astrophysics to study the orbital
+variability of planets in binary systems, such as Pandora planet in the
+famous film Avatar. As the planetary orbital eccentricities and
+inclinations increase, the planetary orbits show faster-changing
+oscillation over a period of thousands of years. For these planets in
+binary systems, climate change is too dramatic for the development of
+intelligent beings. The results help us to understand the potential
+habitable zones for intelligent beings in the Universe.</p>
+<p><strong>Keywords:</strong> N-body Dynamics, Numerical Simulations,
+Exoplanets, Habitable Zone</p>
+<p><strong>Contents</strong></p>
+<p><a href="#introduction"><strong>1. Introduction
+<span>3</span></strong></a></p>
+<p><a
+href="#theory-for-circular-restricted-three-body-problem"><strong>2.
+Theory for Circular Restricted Three-Body Problem
+<span>7</span></strong></a></p>
+<p><a href="#representation-and-choice-of-unit">2.1. Representation and
+Choice of Unit <span>7</span></a></p>
+<p><a href="#lagrange-points-and-three-body-equation-of-motion">2.2.
+Lagrange Points and Three-body Equation of Motion <span>8</span></a></p>
+<p><a href="#stability-of-lagrange-points">2.3. Stability of Lagrange
+Points <span>10</span></a></p>
+<p><a
+href="#methodology-and-construction-of-cr3bp-numerical-integrator"><strong>3.
+Methodology and Construction of CR3BP Numerical Integrator
+<span>11</span></strong></a></p>
+<p><a
+href="#potential-field-and-satellite-trajectory-in-rotating-frame-method">3.1.
+Potential Field and Satellite Trajectory in Rotating Frame: Method
+<span>11</span></a></p>
+<p><a
+href="#circular-restricted-three-body-motion-in-static-frame-method">3.2.
+Circular Restricted Three-body Motion in Static Frame: Method
+<span>13</span></a></p>
+<p><a href="#error-analysis-on-conservation-properties-method">3.3.
+Error Analysis on Conservation Properties: Method
+<span>14</span></a></p>
+<p><a
+href="#effective-station-keeping-through-state-modification-method">3.4.
+Effective Station-Keeping through State-Modification: Method
+<span>15</span></a></p>
+<p><a href="#orbital-stability-simulation-over-time-method">3.5. Orbital
+Stability Simulation over Time: Method <span>16</span></a></p>
+<p><a href="#orbital-stability-vs.-mass-ratio">3.6. Orbital Stability
+vs. Mass Ratio <span>16</span></a></p>
+<p><a href="#orbital-stability-vs.-initial-disturbance">3.7. Orbital
+Stability vs. Initial Disturbance <span>16</span></a></p>
+<p><a
+href="#results-of-circular-restricted-three-body-problem-study"><strong>4.
+Results of Circular Restricted Three Body Problem Study
+<span>17</span></strong></a></p>
+<p><a
+href="#potential-field-and-satellite-trajectory-in-rotating-frame-result">4.1.
+Potential Field and Satellite Trajectory in Rotating Frame: Result
+<span>17</span></a></p>
+<p><a
+href="#circular-restricted-three-body-motion-in-static-frame-result">4.2.
+Circular Restricted Three-body Motion in Static Frame: Result
+<span>19</span></a></p>
+<p><a href="#error-analysis-on-conservation-properties-results">4.3.
+Error Analysis on Conservation Properties: Results
+<span>20</span></a></p>
+<p><a
+href="#effective-station-keeping-through-state-modification-results">4.4.
+Effective Station-Keeping through State-Modification: Results
+<span>23</span></a></p>
+<p><a href="#orbital-stability-simulation-over-time-results">4.5.
+Orbital Stability Simulation over Time: Results <span>25</span></a></p>
+<p><a href="#orbital-stability-and-mass-ratio-results">4.6. Orbital
+Stability and Mass Ratio: Results <span>28</span></a></p>
+<p><a href="#orbital-stability-and-initial-disturbance-results">4.7.
+Orbital Stability and Initial Disturbance: Results
+<span>30</span></a></p>
+<p><a href="#discussion-on-the-stability-of-lagrange-points"><strong>5.
+Discussion on the Stability of Lagrange points
+<span>31</span></strong></a></p>
+<p><a
+href="#generalization-of-coplanar-circular-restricted-three-body-problem-simulations-on-the-planetary-orbits-in-binary-systems"><strong>6.
+Generalization of Coplanar Circular Restricted Three-body Problem:
+Simulations on the Planetary Orbits in Binary Systems
+<span>35</span></strong></a></p>
+<p><a href="#from-circular-to-elliptical">6.1. From “Circular” to
+“Elliptical” <span>35</span></a></p>
+<p><a href="#from-coplanar-to-non-coplanar">6.2. From “Coplanar” to
+“Non-coplanar” <span>38</span></a></p>
+<p><a
+href="#interaction-between-eccentricity-and-inclination-angle">6.3.
+Interaction between Eccentricity and Inclination Angle
+<span>40</span></a></p>
+<p><a
+href="#discussion-on-habitable-planets-in-binary-systems"><strong>7.
+Discussion on Habitable Planets in Binary Systems
+<span>42</span></strong></a></p>
+<p><a href="#conclusion"><strong>8. Conclusion
+<span>44</span></strong></a></p>
+<p><a href="#references"><strong>References
+<span>45</span></strong></a></p>
+<p><a href="#_Toc19644"><strong>Acknowledgement
+<span>47</span></strong></a></p>
+<p><a href="#appendix"><strong>Appendix <span>48</span></strong></a></p>
+<h1 id="introduction">Introduction</h1>
+<p>The two-body problem is a well-known physical problem that describes
+the periodic motion of two bodies around their center of mass and is
+easily solvable in elementary physics textbooks. However, adding to the
+system a third mass greatly complicates this model into a three-body
+problem [1]. The general three-body problem that describes the motion of
+any three objects freely in 3-dimensional space solely under the
+gravitational attraction by each other has no closed-form solution and
+is chaotic, whereas its particular case, the coplanar circular
+restricted three-body problem, has specific solutions [2].</p>
+<p>The coplanar circular restricted three-body problem is described by
+Newtonian equations of the periodic and non-chaotic motions of three
+objects, two with dominant mass and one with negligible mass, in
+coplanar circular orbits around their center of mass [3].</p>
+<p>In a circular restricted three-body system, there are five special
+positions where objects on it co-rotate in the same angular frequency
+with the two dominant bodies around the center of mass, which are named
+the Lagrange points and have labels L1, L2, L3, L4, and L5 [4]. As
+Figure 1.1 shows, the first three Lagrange points are collinear with the
+two dominant bodies, and the latter two form equilateral triangles with
+the two dominant bodies [5]. A Lagrange point is stable if objects can
+orbit stably around it, and whereas L4 and L5 are generally stable given
+sufficient mass-ratio between the dominant bodies, L1, L2, and L3 are
+not stable, which makes any third body on it tend to wander off under
+inevitable perturbations [6].</p>
+<p><img src="./media/image1.jpeg"
+style="width:2.92847in;height:2.5625in"
+alt="Illustration showing balance points between Earth and Sun." /></p>
+<p><strong>Figure 1.1:</strong> Simplified Diagram of Lagrange Points of
+the Earth-Sun System [7]</p>
+<p>The circular restricted three-body problem is one of the most
+significant problems in dynamic astrophysics because of its application
+in orbital dynamics, chaos theory, and astrodynamic operations. The
+Lagrange points are of great applicative significance since their
+co-rotating nature enables both artificial spacecrafts and natural
+celestial bodies to orbit on them without additional thrust [8].</p>
+<p>For applications in artificial spacecrafts, the Lagrange points are
+home to a great number of spacecrafts. L1 of the Sun-Earth system is
+currently the home of SOHO (Solar and Heliospheric Observatory
+Satellite) which provides consistent observation of the Sun [9], ACD
+(Advanced Composition Explorer) which analyzes high-energy particle
+compositions in the solar wind [10], and DSCOVR (Deep Space Climate
+Observatory) which takes photographs of the sunlit Earth [11]. L2 is
+currently the home of the Gaia probe which performs high-precision
+astrometry [12], Spektr-RG which conducts surveys on the galaxies [13],
+and the newly launched JWST (James Webb Space Telescope) which will
+extend the study of the formation of the early universe, the evolution
+of galaxies and dark matter, the early development of stars and planets,
+and the properties of the solar system [14].</p>
+<p>Specifically, the JWST, after 6 months of commission to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.5</mn><mo>×</mo><msup><mn>10</mn><mn>6</mn></msup><mspace width="0.222em"></mspace><mi>k</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">1.5 \times 10^{6}\ km</annotation></semantics></math>
+away from the Earth, arrives and stays around L2 in order to achieve
+optimal efficiency of data transmission, ease of repair, and effective
+shielding of sunlight in its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10.5</mn><annotation encoding="application/x-tex">10.5</annotation></semantics></math>-year
+operating lifetime [15]. However, during its operation, JWST would
+inevitably wander away from its path due to the inherent instability of
+L2 that would be magnified not only by perturbation in the solar system
+such as the accelerative torque and thrust generated by photon striking
+the sunshield with a maximum effective area
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>163</mn><msup><mrow><mspace width="0.222em"></mspace><mi>m</mi></mrow><mn>2</mn></msup><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">163{\ m}^{2}\ </annotation></semantics></math>but
+also by unpredictable events such as striking of micrometeoroids that
+had already occurred [15][16][17]. The modification to the correct path
+requires thrusters to work with annual
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>v</mi><mo>≈</mo><mn>2.43</mn><mfrac><mi>m</mi><mi>s</mi></mfrac></mrow><annotation encoding="application/x-tex">\Delta v \approx 2.43\frac{m}{s}</annotation></semantics></math>
+given a delta-v budget of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25.5</mn><mfrac><mi>m</mi><mi>s</mi></mfrac></mrow><annotation encoding="application/x-tex">25.5\frac{m}{s}</annotation></semantics></math>
+[14]. With velocity-modifying station-keeping every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>21</mn><annotation encoding="application/x-tex">21</annotation></semantics></math>
+days, the JWST will consistently be able to send inspiring data back to
+Earth, as exemplified by the following test Mid-Infrared Instrument
+image of the Large Magellanic Cloud with unprecedented resolution
+[14][18].</p>
+<p><img src="./media/image2.png"
+style="width:3.85764in;height:2.91458in"
+alt="Webb MIRI and Spitzer Comparison Image" /></p>
+<p><strong>Figure 1.2:</strong> Test Image from Webb Space Telescope
+Mid-Infrared Instrument of the Large Magellanic Cloud in Comparison to
+Previous Image from Spitzer Space Telescope Infrared Array Camera
+[18]</p>
+<p>For applications in natural celestial bodies, Trojan asteroids share
+orbits with planets around a star or a moon and co-rotates stably around
+the leading Lagrange point, L4, and the trailing Lagrange point, L5. For
+example, the clusters of asteroids at Lagrange points leading and
+trialing Jupiter - the Greeks and the Trojans respectively as from the
+Trojan War - are visualized in Figure 1.3, representing a great
+proportion of the
+more-than-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>7000</mn><annotation encoding="application/x-tex">7000</annotation></semantics></math>
+Trojan asteroids in the solar system [19]. Similarly, concentrations of
+dust were also found at stable Lagrange points orbiting in the
+Earth-Moon system [23].</p>
+<p><img src="./media/image3.jpeg"
+style="width:4.92014in;height:2.89861in"
+alt="See the source image" /></p>
+<p><strong>Figure 1.3:</strong> Visualization of Jupiter Trojan
+Asteroids as Evidence of Stability of Lagrange Points</p>
+<p>Given the significance of Lagrange points, it is important to develop
+a detailed model to simulate the coplanar circular restricted three-body
+problem and to investigate stability-related processes. Past endeavors
+include modeling of periodicity of satellite (third body) trajectory in
+the rotating frame [20], the behavior of satellite under a small
+arbitrary constant initial disturbance [21], and specific
+station-keeping of the JWST [14]. As for novel contribution, this paper
+presents simulation in different frames, explores orbital stability as
+functions of perturbation and of mass ratio of dominant body which was
+not researched structurally before, and incorporates into the model
+effective error-eliminating station-keeping that applies to all circular
+restricted three-body problems.</p>
+<p>Specifically, this paper will first construct and implement novel
+computational models in Python to simulate the coplanar circular
+restricted three-body problem in both rotating and static frames of
+reference through numerical integration and verify previous analytical
+results on the position of Lagrange points. Then, the deviation of the
+satellite from the expected orbit will be analyzed against the
+conservation of energy, linear momentum, and angular momentum. Next, the
+paper will present an updated model that not only simulates effective
+station-keeping for satellites but also will improve numerical
+precision. For the last part, the paper will obtain quantitative results
+on the stability of the Lagrange points and its related factors as well
+as discusses their mutual interactions.</p>
+<p>After researching the coplanar circular restricted three-body
+problem, this paper extends the analysis by generalizing the three-body
+problem into elliptical and non-coplanar scenarios. Examples of this
+include the motion of planets in actual binary star systems.
+Representing a tremendous portion of all star systems in the entire
+universe, binary star three-body systems have attracted extensive public
+interest as exemplified by the planet Pandora in Avatar and the science
+fiction The Three-body Problem, which both allude to the habitability of
+planets in binary star systems. Previous study of the habitability of
+binary star systems primarily focuses on the water composition of the
+surface of the planets, but this paper points out the importance of
+orbital stability and variability as factors determining the
+habitability of planets in binary star three-body systems, whether as a
+potential destination of human settlement or as a possible home to
+extraterrestrial intelligent beings. Using the widely-used N-body
+numerical integrator MERCURY, the impact of eccentricity and inclination
+angle on the evolution of planetary orbital in generalized three-body
+systems are simulated, analyzed, and discussed, and our research’s
+implications on the habitability of exoplanets in terms of climate
+stability and variability are explained.</p>
+<h1 id="theory-for-circular-restricted-three-body-problem">Theory for
+Circular Restricted Three-Body Problem</h1>
+<p>This section presents the theory of three-body motion in co-rotating
+frame and static frame, analytically derives the locations of Lagrange
+Points by solving zero-potential-gradient points in co-rotating frame,
+and explains theoretical predictions on third-body orbital stability and
+its relationship to mass ratio of the dominant bodies as well as to
+initial perturbation. While this section presents essential theoretical
+conclusions, a detailed explanation of analytical derivation is included
+in the Appendix.</p>
+<h2 id="representation-and-choice-of-unit">Representation and Choice of
+Unit</h2>
+<p>Before theoretical derivation, the choice of unit and representation
+should be specifically chosen in an elegant and normalized manner to
+simplify computation. First, two conventional parameters are defined to
+be</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>s</mi></msub><mo>=</mo><mi>G</mi><msub><mi>m</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">\mu_{s} = Gm_{s}</annotation></semantics></math>
+(1)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>e</mi></msub><mo>=</mo><mi>G</mi><msub><mi>m</mi><mi>e</mi></msub></mrow><annotation encoding="application/x-tex">\mu_{e} = Gm_{e}</annotation></semantics></math>
+(2)</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+is the universal gravitational constant,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>s</mi></msub><annotation encoding="application/x-tex">m_{s}</annotation></semantics></math>
+is the mass of the Sun (the central and most dominant mass), and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>e</mi></msub><annotation encoding="application/x-tex">m_{e}</annotation></semantics></math>
+is the mass of Earth (the second most dominant mass). Then, for
+computational efficiency, it is set that</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>s</mi></msub><mo>+</mo><msub><mi>μ</mi><mi>e</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\mu_{s} + \mu_{e} = 1</annotation></semantics></math>
+(3)</p>
+<p>Finally, the Sun-Earth distance is set unit,</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>d</mi><mi>s</mi></msub><mo>+</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\left| d_{s} + d_{e} \right| = 1</annotation></semantics></math>
+(4)</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>s</mi></msub><annotation encoding="application/x-tex">d_{s}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>e</mi></msub><annotation encoding="application/x-tex">d_{e}</annotation></semantics></math>
+are the distance of the Sun and the Earth respectively to the
+origin.</p>
+<h2 id="lagrange-points-and-three-body-equation-of-motion"> Lagrange
+Points and Three-body Equation of Motion</h2>
+<p><img src="./media/image4.png"
+style="width:3.86528in;height:3.42431in"
+alt="图示, 示意图, 雷达图 中度可信度描述已自动生成" /></p>
+<p><strong>Figure 2.1:</strong> Diagram of the Three-body System</p>
+<p>The coordinates of the five Lagrange points are easiest to obtain in
+a rotating frame. To be exact, the origin of the rotating frame should
+be the center of mass, around which the three bodies orbit
+concentrically. The angular frequency
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>
+of the frame should be the same as the bodies, being</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo>=</mo><msqrt><mfrac><mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>s</mi></msub><mo>+</mo><msub><mi>m</mi><mi>e</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mo stretchy="false" form="prefix">(</mo><msup><mrow><msub><mi>d</mi><mi>s</mi></msub><mo>+</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mn>3</mn></msup></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\omega = \sqrt{\frac{G\left( m_{s} + m_{e} \right)}{({d_{s} + d_{e})}^{3}}}</annotation></semantics></math>
+(5)</p>
+<p>This way, if the third body is on one of the Lagrange points, the
+three bodies would all be stationary in the rotating frame. The
+effective potential function in the rotating frame is given by</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>−</mi><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mi>ω</mi><mn>2</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msub><mi>r</mi><mi>s</mi></msub></mfrac><mo>−</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msub><mi>r</mi><mi>e</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">V = - \frac{1}{2}\omega^{2}\left( x^{2} + y^{2} \right) - \frac{\mu_{s}}{r_{s}} - \frac{\mu_{e}}{r_{e}}</annotation></semantics></math>
+(6)</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math>
+is the coordinate of the object in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-dimensional
+plane, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>s</mi></msub><annotation encoding="application/x-tex">r_{s}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>e</mi></msub><annotation encoding="application/x-tex">r_{e}</annotation></semantics></math>
+are the distance to the Sun and to the Earth respectively. As
+demonstrated in the Appendix, by solving for zero-potential-gradient
+points, the coordinate of the five Lagrange points can be obtained.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>1</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mroot><mfrac><msub><mi>μ</mi><mi>e</mi></msub><mn>3</mn></mfrac><mn>3</mn></mroot><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L1:\left( 1 - \sqrt[3]{\frac{\mu_{e}}{3}},0 \right)</annotation></semantics></math>
+(7)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>2</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mroot><mfrac><msub><mi>μ</mi><mi>e</mi></msub><mn>3</mn></mfrac><mn>3</mn></mroot><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L2:\left( 1 + \sqrt[3]{\frac{\mu_{e}}{3}},0 \right)</annotation></semantics></math>
+(8)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>3</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>−</mo><mfrac><mrow><mn>5</mn><msub><mi>μ</mi><mi>e</mi></msub></mrow><mn>12</mn></mfrac><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L3:\left( - 1 - \frac{5\mu_{e}}{12},0 \right)</annotation></semantics></math>
+(9)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>4</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msub><mi>μ</mi><mi>s</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub></mrow><mn>2</mn></mfrac><mo>,</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L4:\left( \frac{\mu_{s} - \mu_{e}}{2},\frac{\sqrt{3}}{2} \right)</annotation></semantics></math>
+(10)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>5</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msub><mi>μ</mi><mi>s</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub></mrow><mn>2</mn></mfrac><mo>,</mo><mi>−</mi><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L5:\left( \frac{\mu_{s} - \mu_{e}}{2}, - \frac{\sqrt{3}}{2} \right)</annotation></semantics></math>
+(11)</p>
+<p>A combination of Newton's Law of Gravitation and Newton's Second Law
+in the rotating frame also yields a system of ODE as the equation of
+motion of the third object in a circular restricted three-body
+system</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>u</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>y</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>v</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>u</mi><mo accent="true">̇</mo></mover><mo>=</mo><mn>2</mn><mi>ω</mi><mi>v</mi><mo>+</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>s</mi></msub><mfrac><mrow><mi>x</mi><mo>+</mo><msub><mi>μ</mi><mi>e</mi></msub></mrow><msup><msub><mi>r</mi><mi>s</mi></msub><mn>3</mn></msup></mfrac><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub><mfrac><mrow><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>s</mi></msub></mrow><msup><msub><mi>r</mi><mi>e</mi></msub><mn>3</mn></msup></mfrac></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>v</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>−</mi><mn>2</mn><mi>ω</mi><mi>u</mi><mo>+</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>y</mi><mo>−</mo><msub><mi>μ</mi><mi>s</mi></msub><mfrac><mi>y</mi><msup><msub><mi>r</mi><mi>s</mi></msub><mn>3</mn></msup></mfrac><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub><mfrac><mi>y</mi><msup><msub><mi>r</mi><mi>e</mi></msub><mn>3</mn></msup></mfrac></mtd></mtr></mtable></mrow><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">\left\{ \begin{array}{r}
+\dot{x} = u \\
+\dot{y} = v \\
+\dot{u} = 2\omega v + \omega^{2}x - \mu_{s}\frac{x + \mu_{e}}{{r_{s}}^{3}} - \mu_{e}\frac{x - \mu_{s}}{{r_{e}}^{3}} \\
+\dot{v} = - 2\omega u + \omega^{2}y - \mu_{s}\frac{y}{{r_{s}}^{3}} - \mu_{e}\frac{y}{{r_{e}}^{3}}
+\end{array} \right.\ </annotation></semantics></math> (12)</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+are components of the third object's velocity vector in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+directions.</p>
+<p>On the other hand, the three-body equation of motion in the static
+frame is more elementary, with each body's acceleration vector equals to
+the resultant gravitational field strength of the two other bodies, as
+exemplified by the equations of motion of the third body.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>u</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>y</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>v</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>u</mi><mo accent="true">̇</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>π</mi><mo>+</mo><msup><mo>tan</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mfrac><mi>y</mi><mi>x</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>v</mi><mo accent="true">̇</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>sin</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>π</mi><mo>+</mo><msup><mo>tan</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mfrac><mi>y</mi><mi>x</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable></mrow><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">\left\{ \begin{array}{r}
+\dot{x} = u \\
+\dot{y} = v \\
+\dot{u} = \left( \frac{\mu_{s}}{{r_{s}}^{2}} + \frac{\mu_{e}}{{r_{e}}^{2}} \right)\cos\left( \pi + \tan^{- 1}\frac{y}{x} \right) \\
+\dot{v} = \left( \frac{\mu_{s}}{{r_{s}}^{2}} + \frac{\mu_{e}}{{r_{e}}^{2}} \right)\sin\left( \pi + \tan^{- 1}\frac{y}{x} \right)
+\end{array} \right.\ </annotation></semantics></math> (13)</p>
+<h2 id="stability-of-lagrange-points">Stability of Lagrange Points</h2>
+<p>One central topic in the study of Lagrange points in a three-body
+system is their stability because the normal operation of spacecrafts
+around them is dependent on the stability of the points. Orbital
+stability is defined here as the ability of the satellite to not leave
+an arbitrary small escape radius in a sufficiently long time given an
+arbitrary small initial disturbance [21].</p>
+<p>The conventional strategy of inspecting the shape of the potential
+field fails here since the frame is rotating. Despite being potential
+maxima, L4 and L5 are unexpectedly stable since Coriolis force drives
+any object falling from the maxima up again. On the other hand, L1, L2,
+and L3, being saddle points where objects tend to fall off, are
+dynamically unstable as expected [7].</p>
+<p>Therefore, to inspect orbital stability, the equations of motion of
+satellites around the Lagrange points are linearized, transformed into
+evolution matrices, and solved [21]. The eigenvalues are then obtained
+analytically, interpreted in the Appendix, and used to derive the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time (the time of a small perturbation to grow e-times larger) of the
+three unstable Lagrange points orbits:</p>
+<p><em><strong>Table 2.1:</strong> e-Folding Time of the Three Unstable
+Lagrange Point Orbits in Solar System in Normalized and Unnormalized
+Unit</em></p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 23%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr>
+<th>Lagrange Point Orbit</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-Folding
+Time</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-Folding
+Time (Normalized Unit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>L1</th>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math>
+Days</td>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.4</mn><mspace width="0.222em"></mspace><mi>s</mi></mrow><annotation encoding="application/x-tex">0.4\ s</annotation></semantics></math></td>
+</tr>
+<tr>
+<th>L2</th>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math>
+Days</td>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.4</mn><mspace width="0.222em"></mspace><mi>s</mi></mrow><annotation encoding="application/x-tex">0.4\ s</annotation></semantics></math></td>
+</tr>
+<tr>
+<th>L3</th>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math>
+Years</td>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>351.8</mn><mspace width="0.222em"></mspace><mi>s</mi></mrow><annotation encoding="application/x-tex">351.8\ s</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>The stability of Lagrange point orbits is dependent on the mass ratio
+of the two dominant bodies (mass of Sun divided by mass of Earth). For
+L4 and L5, the orbits should only be stable when the mass ratio
+satisfies the threshold below.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub></mfrac><mo>≥</mo><mfrac><mrow><mn>25</mn><mo>+</mo><mn>3</mn><msqrt><mn>69</mn></msqrt></mrow><mn>2</mn></mfrac><mo>≈</mo><mn>24.9599</mn></mrow><annotation encoding="application/x-tex">\frac{m_{1}}{m_{2}} \geq \frac{25 + 3\sqrt{69}}{2} \approx 24.9599</annotation></semantics></math>
+(14)</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mn>1</mn></msub><annotation encoding="application/x-tex">m_{1}</annotation></semantics></math>
+is the mass of the heavier dominant body and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mn>2</mn></msub><annotation encoding="application/x-tex">m_{2}</annotation></semantics></math>
+is that of the lighter dominant body [21]. When the mass ratio falls
+below this threshold, the eigenvalue of L4 and L5 orbit is no longer
+purely imaginary (as shown in the Appendix), causing objects on L4 and
+L5 to unstably wander off as time progresses.</p>
+<h1
+id="methodology-and-construction-of-cr3bp-numerical-integrator">Methodology
+and Construction of CR3BP Numerical Integrator</h1>
+<p>The research process will include the construction of an original
+numerical integrator and various tests using it. Each part of this
+section has a corresponding results part in Section 4. While
+explanations of key code snippets are incorporated here, the full
+program can be found at https://github.com/ChenglinCai/CR3BP.git.</p>
+<h2
+id="potential-field-and-satellite-trajectory-in-rotating-frame-method">Potential
+Field and Satellite Trajectory in Rotating Frame: Method</h2>
+<p>To start, the effective potential field
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+in the co-rotating frame will be mapped out in a contour plot on a NumPy
+meshgrid using the function below to locate and visualize Lagrange
+points through examination of potential and potential gradients in the
+space. The Boolean variable SS can be set to show in full scale the
+Sun-Earth-Lagrange-points system or close-up to the region around the
+Earth specifically.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>s</mi></msub><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">\mu_{s}\ </annotation></semantics></math>and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>e</mi></msub><annotation encoding="application/x-tex">\mu_{e}</annotation></semantics></math>
+can be chosen to follow the actual Sun-Earth mass ratio
+(1<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>:</mo><mn>3.0</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">:3.0 \times 10^{- 6}</annotation></semantics></math>)
+or the demonstrative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.98</mn><mo>:</mo><mn>0.02</mn></mrow><annotation encoding="application/x-tex">0.98:0.02</annotation></semantics></math>
+ratio.</p>
+<p><img src="./media/image5.png"
+style="width:5.82708in;height:2.17778in"
+alt="文本 描述已自动生成" /></p>
+<p><strong>Figure 3.1:</strong> Effective Potential Field Plot</p>
+<p>Then, in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-dimensional
+rotating frame with the potential field visualized, the trajectory of
+satellites on the five Lagrange points will be simulated to verify
+theoretical prediction and to provide a reference for further
+simulation. First, a vectorized system of ODE (directly referring to the
+equation of motion in Section 2.2) will be defined to describe the
+motion. When the satellite is in state
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐲</mi><annotation encoding="application/x-tex">\mathbf{y}</annotation></semantics></math>
+(a four-element vector with components of horizontal displacement,
+vertical displacement, horizontal velocity, and vertical velocity), the
+change-of-state vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐝</mi><mi>𝐲</mi></mrow><annotation encoding="application/x-tex">\mathbf{d}\mathbf{y}</annotation></semantics></math>
+(a four-element vector with components of horizontal velocity, vertical
+velocity, horizontal acceleration, vertical acceleration) will be
+obtained from this ODE. Note that the angular frequency of the rotating
+frame
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>
+will be normalized to one.</p>
+<p><img src="./media/image6.png"
+style="width:5.97153in;height:1.91458in" /></p>
+<p><strong>Figure 3.2:</strong> ODE of Motion of Satellite in Rotating
+Frame</p>
+<p>Next, function 'odeint’ from module scipy.integrate will be utilized
+to simulate the trajectory. The ‘odeint’ function is a numerical
+integrator that can solve vectorized ordinary differential equations
+(L_r) with an initial condition vector
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐲</mi><mn>𝟎</mn></mrow><annotation encoding="application/x-tex">\mathbf{y}\mathbf{0}</annotation></semantics></math>)
+over a time interval (tlist). The relative error tolerance of this
+numerical integration will be set to a lower-than-default
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>10</mn></mrow></msup><annotation encoding="application/x-tex">10^{- 10}</annotation></semantics></math>,
+yielding significantly more accurate results.</p>
+<p><img src="./media/image7.png"
+style="width:6.25in;height:0.24306in" /></p>
+<p><strong>Figure 3.3:</strong> Solution of Satellite Trajectory ODE</p>
+<h2
+id="circular-restricted-three-body-motion-in-static-frame-method">Circular
+Restricted Three-body Motion in Static Frame: Method</h2>
+<p>Using the same structure of code, the trajectory of the three objects
+in the regular static frame will also be simulated. The vectorized
+system of ODE will have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>
+differential terms:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
+moving bodies, each with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+components (horizontal velocity, vertical velocity, horizontal
+acceleration, and vertical acceleration). While the Sun and the Earth
+will only subject to the gravitational attraction of each other, the
+satellite will be subject to those of both. Note that the angle terms of
+acceleration will always be phase-shifted by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>
+relative to its positional angle to the center of mass.</p>
+<p><img src="./media/image8.png"
+style="width:5.82708in;height:3.51875in" /></p>
+<p><strong>Figure 3.4:</strong> ODE of Three-Body Motion in Static
+Frame</p>
+<p>With the origin of the frame at the center of mass of the system,
+initially, the Sun and the Earth will have no vertical displacement and
+horizontal velocity but respectively have horizontal displacement of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>r</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">- r_{s}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>e</mi></msub><annotation encoding="application/x-tex">r_{e}</annotation></semantics></math>
+and vertical velocity of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>ω</mi><msub><mi>r</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">- \omega r_{s}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><msub><mi>r</mi><mi>e</mi></msub></mrow><annotation encoding="application/x-tex">\omega r_{e}</annotation></semantics></math>.
+The initial displacement of the satellite will be set near different
+Lagrange points, with the angle of initial velocity shifted
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mfrac><mi>π</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">- \frac{\pi}{2}</annotation></semantics></math>
+relative to displacement. The trajectory of all objects will be solved
+simultaneously using again the odeint function.</p>
+<h2 id="error-analysis-on-conservation-properties-method">Error Analysis
+on Conservation Properties: Method</h2>
+<p>Computational models are inevitably subject to the accumulation of
+numerical errors, just as how real-world three-body systems are
+unavoidably disturbed by external perturbations. These two types of
+disturbance are indistinguishable in our simulations. To test and
+understand the imprecision of the model, error analysis will be
+performed to analyze perturbation in orbits from expectation due to
+computational imprecision and real-world disturbances together, allowing
+future simultaneous correction of both. To perform error analysis, this
+simulation will examine the conservation of energy, linear momentum, and
+angular momentum of the three-body system in the static frame.</p>
+<p>First, a function to calculate the total kinetic energy, total
+gravitational potential energy, and total energy of the system will be
+defined. The function will be applied for every moment in the simulation
+to obtain the energies as functions of time. The Virial Theorem will
+also be verified by demonstrating how total kinetic energy and half the
+total potential energy sum to zero.</p>
+<p><img src="./media/image9.png"
+style="width:5.76875in;height:2.02361in" /></p>
+<p><img src="./media/image10.png"
+style="width:5.81528in;height:0.15694in" /></p>
+<p><strong>Figure 3.5:</strong> Conservation of Energy as Error
+Analysis</p>
+<p>Second, a function to calculate total horizontal and vertical linear
+momentum will be defined. The magnitude of linear momentum, being a
+conserved property, is then calculated for each moment in the
+simulation.</p>
+<p><img src="./media/image11.png"
+style="width:5.46528in;height:1.09097in" /><img
+src="./media/image12.png"
+style="width:5.15139in;height:0.28472in" /></p>
+<p><strong>Figure 3.6:</strong> Conservation of Linear Momentum as Error
+Analysis</p>
+<p>Third, a function to calculate the total angular momentum of the
+system will be defined and applied to calculate the total magnitude of
+angular momentum for each moment in the simulation.</p>
+<p><img src="./media/image13.png"
+style="width:5.37222in;height:0.96944in"
+alt="文本 描述已自动生成" /></p>
+<p><strong>Figure 3.7:</strong> Conservation of Angular Momentum as
+Error Analysis</p>
+<h2
+id="effective-station-keeping-through-state-modification-method">Effective
+Station-Keeping through State-Modification: Method</h2>
+<p>Given the quantifiable errors in three-body motion, station-keeping
+of satellites that drifted erroneously off-orbit will be effectively
+performed by modifying the bodies to the correct state after every time
+interval (or "section") with constant preset section length during the
+course of the simulation. To actualize this, a modifyState function will
+be defined in Figure 3.8.</p>
+<p><img src="./media/image14.png"
+style="width:6.29097in;height:2.19444in" /></p>
+<p><strong>Figure 3.8:</strong> State Modification Function to Correct
+Error in Three-Body Motion</p>
+<p>Since the Sun and Earth are not subjects of concern, their state
+modification will be done by placing them at their original orbit with
+the correct velocity vector at the instant of modification. On the other
+hand, as shown in the Figure, the satellite will then be station-kept by
+undergoing the state modification that best corrects the deviation from
+initial energy and angular momentum. To be exact, test change of
+horizontal and vertical velocity in range
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\lbrack - 2,\ 2\rbrack</annotation></semantics></math>
+will be performed, and the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">\mathrm{\Delta}v</annotation></semantics></math>
+vector eventually chosen will be the one that makes conserved properties
+of the modified state have the least absolute deviation from their
+initial values.</p>
+<h2 id="orbital-stability-simulation-over-time-method">Orbital Stability
+Simulation over Time: Method</h2>
+<p>Next, tests will be performed to examine orbital stability over time.
+To be specific, drift radius error (deviation of the satellite from the
+correct radius of trajectory from center of mass) will be simulated as a
+function of time under small initial disturbances. The simulation result
+can also be used to check the time needed for an arbitrary pre-set
+deviation from the expected radius to increase by a factor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time) and to examine how stability (manifested as the quickness of
+deviation from the expected path) changes as mass ratio and initial
+disturbances change in different Lagrange points.</p>
+<h2 id="orbital-stability-vs.-mass-ratio">Orbital Stability vs. Mass
+Ratio</h2>
+<p>The next set of experiments will examine how the mass ratio of the
+two dominant bodies impacts the stability of the five Lagrange point
+orbits. This can be regarded as an extensional study of the circular
+restricted three-body problem to mass ratios that are greatly less than
+the celestial values, which can provide further reference to the
+problem. The simulation will be iterated for mass ratios from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>15</mn><annotation encoding="application/x-tex">15</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>40</mn><annotation encoding="application/x-tex">40</annotation></semantics></math>,
+and the recorded
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+times will be plotted as functions of mass ratio.</p>
+<h2 id="orbital-stability-vs.-initial-disturbance">Orbital Stability vs.
+Initial Disturbance</h2>
+<p>The final set of experiments will examine the impact of initial
+disturbance on the time for the satellite to escape a certain escape
+radius from the expected orbit, in this case being that with an escape
+radius of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.01</mn><annotation encoding="application/x-tex">0.01</annotation></semantics></math>
+(a great value considering the normalized units). The two types of
+initial disturbance examined are displacement
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>)
+and velocity
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>)
+disturbance on the positive x-direction. The ranges of independent
+variable, x_dis_list and u_dis_list, are respectively
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0.0001</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0.009</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\lbrack 0.0001,\ 0.009\rbrack</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0.0</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0.1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\lbrack 0.0,\ 0.1\rbrack</annotation></semantics></math>.
+The dependent variable, escape time, will be measured by for-iteration
+that breaks when the satellite’s radius is greater than the escape
+radius. Note that only initial disturbances on the positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-direction
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>-direction
+are considered because the thruster can only be placed on the side of
+the sunshield due to temperature requirements, which means any escaping
+in the direction opposite to the Sun will be irreparable [22].</p>
+<h1 id="results-of-circular-restricted-three-body-problem-study">Results
+of Circular Restricted Three Body Problem Study</h1>
+<p>The simulations are then run with various parameters, and the results
+are presented correspondingly as follows. Keep in mind that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+time unit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>≈</mo><annotation encoding="application/x-tex">\approx</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>57.5</mn><annotation encoding="application/x-tex">57.5</annotation></semantics></math>
+days.</p>
+<h2
+id="potential-field-and-satellite-trajectory-in-rotating-frame-result">Potential
+Field and Satellite Trajectory in Rotating Frame: Result</h2>
+<p><img src="./media/image15.png"
+style="width:5.76806in;height:2.44167in"
+alt="电子设备的屏幕 中度可信度描述已自动生成" /></p>
+<p><strong>Figure 4.1</strong> Potential Field of Circular Three-Body
+System in Rotating Field</p>
+<p>Figure 4.1 shows the potential field contour plot with theoretical
+positions of Lagrange points annotated in a circular restricted
+three-body system when the mass ratio of the dominant bodies is set at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.98</mn><mo>:</mo><mn>0.02</mn></mrow><annotation encoding="application/x-tex">0.98:0.02</annotation></semantics></math>
+to be demonstrative. The gravitational field is strongest near the Sun
+and the Earth, and all Lagrange points lie at points with zero potential
+gradient. It can be interpreted from the graph that L1, L2, and L3 are
+at potential saddles while L4 and L5 are at maxima of flat potential
+plateaus.</p>
+<p>The accuracy of the model can also be tested by zooming in to examine
+the orbit of a spacecraft near Earth. As shown in Figure 4.2, a
+spacecraft can achieve stable periodic orbiting around the Earth.</p>
+<p><img src="./media/image16.png"
+style="width:5.76806in;height:2.32708in"
+alt="图表, 图示 描述已自动生成" /></p>
+<p><strong>Figure 4.2:</strong> Stable Orbit of Spacecraft Around the
+Earth in 500 Time Units</p>
+<p>The simulations are then run in a three-body potential field with the
+actual Sun-Earth mass ratio, the satellite starting exactly at each of
+the five Lagrange points, and the initial position marked by the green
+dot. As exemplified by the case of L3 in Figure 4.3, the analytically
+calculated positions of Lagrange points in fact allow objects on it to
+stay still in a co-rotating frame, verifying the theoretical
+results.</p>
+<p><img src="./media/image17.png"
+style="width:5.45694in;height:2.31111in" /></p>
+<p><strong>Figure 4.3:</strong> Analytical Results Verified: Satellite
+Exactly on Lagrange points for 1000 Time Units</p>
+<p>It is important to note that, despite no manually-inputted initial
+disturbance, L1 and L2, being extremely unstable Lagrange points, can
+also demonstrate instability because computational imprecision itself
+can cause wandering off, and this effect will be discussed and solved
+later in this section.</p>
+<p>On the other hand, L3, L4, and L5 can still stay stable under
+tolerable initial disturbance. If the disturbance is relatively great,
+such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>0.001</mn></mrow><annotation encoding="application/x-tex">+ 0.001</annotation></semantics></math>
+disturbance in vertical displacement as shown in Figure 4.4, then the
+satellite will wander off from the point as well.</p>
+<p><img src="./media/image18.png"
+style="width:5.46944in;height:2.31458in"
+alt="图示 描述已自动生成" /></p>
+<p><strong>Figure 4.4:</strong> Initial Disturbance Causes Satellite
+Near L5 to Wander Off in 500 Time Units</p>
+<h2
+id="circular-restricted-three-body-motion-in-static-frame-result">Circular
+Restricted Three-body Motion in Static Frame: Result</h2>
+<p><img src="./media/image19.png"
+style="width:6.16528in;height:3.17639in" /></p>
+<p><strong>Figure 4.5:</strong> Trajectory of Satellite Near L1 in
+Static Frame over 1000 Time Units</p>
+<p>Figure 4.5 demonstrates the trajectory of the three bodies in the
+static frame with the actual Sun-Earth mass ratio. The center represents
+the Sun, the yellow line represents the orbit of the Earth, and the
+black line represents the trajectory of the satellite. It is observable
+that the satellite quickly deviates from its original radius of
+trajectory and escapes from L1, which should have a constant radius as
+represented by the distance between the green dot and the center of the
+graph. The satellite also wanders in and out in its orbit, as
+demonstrated by the apparent width of the black orbit. Simulation of the
+orbital trajectory of satellites near L2 and L3, the two other unstable
+orbits, reveals similar results.</p>
+<p>On the other hand, the orbits of L4 and L5 are clearly more stable,
+which corresponds to the stability-related theoretical predictions. For
+example, in the case of L4 in Figure 4.6, the satellite orbits nearly
+perfectly at its original trajectory, making its orbit coincide with
+that of Earth in the graph as expected.</p>
+<p><img src="./media/image20.png"
+style="width:5.42639in;height:2.79653in"
+alt="图形用户界面, 表格 描述已自动生成" /></p>
+<p><strong>Figure 4.6:</strong> Trajectory of Satellite Near L4 in
+Static Frame over 1000 Time Units</p>
+<h2 id="error-analysis-on-conservation-properties-results">Error
+Analysis on Conservation Properties: Results</h2>
+<p><img src="./media/image21.png"
+style="width:5.76806in;height:2.98333in"
+alt="图形用户界面, 表格 描述已自动生成" /></p>
+<p><strong>Figure 4.7:</strong> Energy Conservation of L1-Orbit
+Three-Body System</p>
+<p>All simulations are accurate in terms of the conservation of energy
+over each step of the simulation. Given no collision, the initial total
+kinetic energy, initial total gravitational potential energy, and
+initial total energy are conserved throughout the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>100</mn><annotation encoding="application/x-tex">100</annotation></semantics></math>-time-unit
+interval as shown in Figure 4.7. The energy of the system also satisfies
+the Virial Theorem of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>E</mi><mo>+</mo><mfrac><mi>p</mi><mn>2</mn></mfrac><mi>K</mi><mi>E</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">PE + \frac{p}{2}KE = 0</annotation></semantics></math>,
+which further proves its accuracy as a simulation of the physical
+system. With L1 demonstrating high accuracy in energy conservation, it’s
+also easily obtainable that all other simulation demonstrates
+conservation of energy to a high extent.</p>
+<p><img src="./media/image22.png"
+style="width:6.01042in;height:3.07431in" /></p>
+<p><strong>Figure 4.8:</strong> Linear Momentum of L1-Orbit Three-Body
+System</p>
+<p><img src="./media/image23.png"
+style="width:6.05625in;height:3.07361in" /></p>
+<p><strong>Figure 4.9:</strong> Linear Momentum of L5-Orbit Three-Body
+System</p>
+<p>However, for linear momentum conservation verification, the extent of
+error is distinguished between stable and unstable Lagrange points. As
+exemplified in Figure 4.8, the unstable Lagrange orbits cannot conserve
+the initial total magnitude of linear momentum; instead, as exemplified
+in Figure 4.9, the stable Lagrange orbits show no fluctuation and
+conserves linear momentum precisely.</p>
+<p><img src="./media/image24.png"
+style="width:5.91806in;height:3.03542in"
+alt="图表, 折线图 描述已自动生成" /></p>
+<p><strong>Figure 4.10:</strong> Angular Momentum of L1-Orbit Three-Body
+System</p>
+<p><img src="./media/image25.png"
+style="width:5.91806in;height:3.03542in"
+alt="图表, 折线图 描述已自动生成" /></p>
+<p><strong>Figure 4.11:</strong> Angular Momentum of L1-Orbit Three-Body
+System</p>
+<p>Finally, inaccuracy of the unmodified simulation is exposed in the
+verification of angular momentum. Angular momentum is conserved for
+neither stable nor unstable Lagrange point orbits: in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>100</mn><annotation encoding="application/x-tex">100</annotation></semantics></math>
+time units concerned, the magnitude of angular momentum fluctuates with
+no specific pattern in the L1-orbit system and starts to increase nearly
+linearly in the L5-orbit system. The aforementioned imprecision
+demonstrates the need for state modification by all orbiting
+satellites.</p>
+<h2
+id="effective-station-keeping-through-state-modification-results">Effective
+Station-Keeping through State-Modification: Results</h2>
+<p>As shown in Figure 4.12, the simulation is run over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>50</mn><annotation encoding="application/x-tex">50</annotation></semantics></math>
+time units with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>50000</mn><annotation encoding="application/x-tex">50000</annotation></semantics></math>
+steps in total and with state modification every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+steps.</p>
+<p><img src="./media/image26.png"
+style="width:4.95625in;height:2.64306in"
+alt="图片包含 图表 描述已自动生成" /></p>
+<p><strong>Figure 4.12:</strong> Satellite Orbit Near L1 with
+Station-Keeping</p>
+<p>The station-keeping is effective and successful because the satellite
+orbits around its expected orbits instead of wandering into other paths.
+Figure 4.13, Figure 4.14, and Figure 4.15 demonstrate the conservation
+of energy, linear momentum, and angular momentum in the system for each
+step of the simulation. It is notable that the conservation of linear
+and angular momentum achieved significant improvement: the magnitude of
+linear momentum virtually stops fluctuating, and the fluctuation of
+angular momentum reduces to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+orders of magnitude less.</p>
+<p><img src="./media/image27.png"
+style="width:4.76181in;height:2.59514in"
+alt="表格 描述已自动生成" /></p>
+<p><strong>Figure 4.13:</strong> Energy Conservation of L1-Orbit
+Three-Body System with Station-Keeping</p>
+<p><img src="./media/image28.png"
+style="width:5.45556in;height:2.86875in" /></p>
+<p><strong>Figure 4.14:</strong> Linear Momentum Conservation of
+L1-Orbit Three-Body System with Station-Keeping</p>
+<p><img src="./media/image29.png"
+style="width:5.35972in;height:2.85972in"
+alt="图表 描述已自动生成" /></p>
+<p><strong>Figure 4.15:</strong> Angular Momentum Conservation of
+L1-Orbit Three-Body System with Station-Keeping</p>
+<p>With both unmodified and modified simulations developed, results
+related to orbital stability can then be obtained.</p>
+<h2 id="orbital-stability-simulation-over-time-results">Orbital
+Stability Simulation over Time: Results</h2>
+<ul>
+<li><p><strong><u>L1 and L2</u></strong></p></li>
+</ul>
+<p><img src="./media/image30.png"
+style="width:5.76806in;height:3.04583in"
+alt="图表, 折线图 描述已自动生成" /></p>
+<p><strong>Figure 4.16:</strong> Drift from Expected Radius vs. Time (L1
+Orbit, Actual Mass Ratio)</p>
+<p>Figure 4.16 demonstrates the wandering-off process of a satellite
+over a period of time from L1 orbit in the unmodified simulation, given
+an initial displacement disturbance of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0001</mn><annotation encoding="application/x-tex">0.0001</annotation></semantics></math>.
+The error here doesn’t mean calculational imprecision but is a term for
+the deviation from expected Lagrange orbital. The errors periodically
+fluctuate because of the asymmetric nature of the deviated orbit
+observable in Figure 4.5. The errors accumulate due to the inherent
+instability of the orbit and then decrease due to the still-existing
+binding nature of the system under small disturbance. Table 4.1 records
+the time needed for the initial perturbation to fold into different
+times of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+from the initial value, which strongly fits to the theoretically
+predicted
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.4</mn><annotation encoding="application/x-tex">0.4</annotation></semantics></math>
+time units from Table 2.1 (which correspond to
+~<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math>
+days). Note that the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+doesn’t fit the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.4</mn><annotation encoding="application/x-tex">0.4</annotation></semantics></math>-time-unit
+prediction, possibly due to the fact that the perturbation is overly
+small and therefore takes relatively more time to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-fold
+once.</p>
+<table>
+<caption><p><strong>Table 4.1:</strong> e-Folding Time of Different
+Powers of e for an Initial Disturbance of 0.0001 from L1</p></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>1</mn></mrow><annotation encoding="application/x-tex">err\  = \ 1</annotation></semantics></math></th>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.001000100010001</mn><annotation encoding="application/x-tex">0.001000100010001</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mi>e</mi></mrow><annotation encoding="application/x-tex">err\  = \ e</annotation></semantics></math></th>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.759075907590759</mn><annotation encoding="application/x-tex">0.759075907590759</annotation></semantics></math></td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{2}</annotation></semantics></math></th>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.1831183118311832</mn><annotation encoding="application/x-tex">1.1831183118311832</annotation></semantics></math></td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><msup><mi>e</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">err\  = e^{3}</annotation></semantics></math></th>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.5651565156515652</mn><annotation encoding="application/x-tex">1.5651565156515652</annotation></semantics></math></td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{4}</annotation></semantics></math></th>
+<td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.8981898189818982</mn><annotation encoding="application/x-tex">1.8981898189818982</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>Table 4.2 records the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time results for L2 orbit with an initial disturbance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+times bigger. The disturbance never achieves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mn>3</mn></msup><annotation encoding="application/x-tex">e^{3}</annotation></semantics></math>-fold
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mn>4</mn></msup><annotation encoding="application/x-tex">e^{4}</annotation></semantics></math>-fold
+because the orbit never collapses such that the satellite can escape too
+far away. However, with the initial perturbation increased by a factor
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>,
+both the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time and the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mn>2</mn></msup><annotation encoding="application/x-tex">e^{2}</annotation></semantics></math>-folding
+time correspond to the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.4</mn><annotation encoding="application/x-tex">0.4</annotation></semantics></math>-time-unit
+theoretical prediction.</p>
+<table>
+<caption><p><strong>Table 4.2:</strong> e-Folding Time of Different
+Powers of e for an Initial Disturbance of 0.001 from L2</p></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>1</mn></mrow><annotation encoding="application/x-tex">err\  = \ 1</annotation></semantics></math></th>
+<th>1.5811581158115813</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mi>e</mi></mrow><annotation encoding="application/x-tex">err\  = \ e</annotation></semantics></math></th>
+<td>1.9441944194419443</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{2}</annotation></semantics></math></th>
+<td>2.2532253225322534</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><msup><mi>e</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">err\  = e^{3}</annotation></semantics></math></th>
+<td>-1</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{4}</annotation></semantics></math></th>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong><u>L3</u></strong></p></li>
+</ul>
+<p>For L3 orbit, the drift radius error still accumulates with time as
+in Figure 4.17, but the scale is decreased to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>5</mn></mrow></msup><annotation encoding="application/x-tex">10^{- 5}</annotation></semantics></math>
+due to increased stability. As time progresses, however, the bound
+periodic trend emerges again, as shown in Figure 5.1 in the
+Discussion.</p>
+<p><img src="./media/image31.png"
+style="width:5.76806in;height:3.19444in"
+alt="图表, 折线图 描述已自动生成" /></p>
+<p><strong>Figure 4.17:</strong> Drift from Expected Radius vs. Time (L3
+Orbit, Actual Mass Ratio)</p>
+<p>As shown in Table 4.3, with the relative stability of the L3 orbit,
+even a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.00001</mn><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">0.00001\ </annotation></semantics></math>perturbation
+cannot e-fold twice in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1000</mn><annotation encoding="application/x-tex">1000</annotation></semantics></math>
+time units. However, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time indeed closely fits the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>351.8</mn><annotation encoding="application/x-tex">351.8</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time predicted in Table 2.1 (which corresponds to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math>
+years).</p>
+<table>
+<caption><p><strong>Table 4.3:</strong> e-Folding Time of Different
+Powers of e for an Initial Disturbance of 0.00001 from L3</p></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>1</mn></mrow><annotation encoding="application/x-tex">err\  = \ 1</annotation></semantics></math></th>
+<th>428.042804280428</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mi>e</mi></mrow><annotation encoding="application/x-tex">err\  = \ e</annotation></semantics></math></th>
+<td>771.077107710771</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{2}</annotation></semantics></math></th>
+<td>1132.113211321132</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><msup><mi>e</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">err\  = e^{3}</annotation></semantics></math></th>
+<td>1496.1496149614961</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{4}</annotation></semantics></math></th>
+<td>1856.185618561856</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong><u>L4 and L5</u></strong></p></li>
+</ul>
+<p>For L5 (and L4) orbits with a mass ratio above the threshold of
+stability
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>25</mn><annotation encoding="application/x-tex">25</annotation></semantics></math>
+in this case), as shown in Figure 4.18, the satellite can stably stay in
+orbit in the order of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>5</mn></mrow></msup><annotation encoding="application/x-tex">10^{- 5}</annotation></semantics></math>
+instead of drifting away as in the case of L3 orbit, even if the initial
+disturbance is as large as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.005</mn><annotation encoding="application/x-tex">0.005</annotation></semantics></math>.
+The initial disturbance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folds
+after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4.48</mn><annotation encoding="application/x-tex">4.48</annotation></semantics></math>
+time units
+(~<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+years) but never can fold anymore.</p>
+<p><img src="./media/image32.png"
+style="width:5.21111in;height:2.82222in" /></p>
+<p><strong>Figure 4.18:</strong> Drift from Expected Radius vs. Time (L5
+Orbit, Mass Ratio = 25)</p>
+<h2 id="orbital-stability-and-mass-ratio-results">Orbital Stability and
+Mass Ratio: Results</h2>
+<p>Figure 4.19 demonstrates the positive relationship between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time and Sun-Earth mass ratio for L1 orbit. The trend is the same for
+the L2 orbit.</p>
+<p><img src="./media/image33.png"
+style="width:5.02917in;height:2.72431in" /></p>
+<p><strong>Figure 4.19:</strong> e-Folding Time of 0.00001 Initial
+Disturbance of L1 Orbit vs. Sun-Earth Mass Ratio</p>
+<p>Figure 4.20 demonstrates the same relationship for L3 orbit, which is
+not stepwise but shows the same trend as Figure 4.19. The red line
+represents the time for the initial disturbance to fold by a factor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>,
+whereas the blue lines represent the time for the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folded
+disturbance to fold by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+again; both are manifestations of stability.</p>
+<p><img src="./media/image34.png"
+style="width:5.01806in;height:2.79653in" /></p>
+<p><strong>Figure 4.20:</strong> e-Folding Time of 0.0001 Initial
+Disturbance of L3 Orbit vs. Sun-Earth Mass Ratio</p>
+<p>For L4 and L5, as shown in Figure 4.21, the trend is interestingly
+different. Below the threshold of stability, disturbance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folds
+with a time interval of approximately
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+time units, which is the same as predicted in Section 4.5. However,
+above the threshold, the orbit is immediately stabilized, giving
+negative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time which computationally symbolizes the inability to escape even by a
+factor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.</p>
+<p><img src="./media/image35.png"
+style="width:5.51875in;height:3.14028in"
+alt="图表, 折线图 描述已自动生成" /></p>
+<p><strong>Figure 4.21:</strong> e-Folding Time of 0.0001 Initial
+Disturbance of L5 Orbit vs. Sun-Earth Mass Ratio</p>
+<h2 id="orbital-stability-and-initial-disturbance-results">Orbital
+Stability and Initial Disturbance: Results</h2>
+<p>Finally, as shown in Figure 4.22 and Figure 4.23, as the initial
+disturbance in positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+direction increases, the escape time for an escape radius decreases.
+Given sufficient initial disturbance, the third object can escape from
+Lagrange point orbit almost immediately.</p>
+<p><img src="./media/image36.png"
+style="width:5.76806in;height:3.21458in" /></p>
+<p><strong>Figure 4.22:</strong> Escape Time of 0.01 Escape Radius vs.
+Initial Disturbance on x Disturbance</p>
+<p><img src="./media/image37.png"
+style="width:5.76806in;height:3.21458in" /></p>
+<p><strong>Figure 4.23:</strong> Escape Time of 0.01 Escape Radius vs.
+Initial Disturbance on u Disturbance</p>
+<h1 id="discussion-on-the-stability-of-lagrange-points">Discussion on
+the Stability of Lagrange points</h1>
+<p>This section discusses the results from Section 4, links the output
+of each simulation together, and provides further exploration of the
+topic.</p>
+<p>The coordinates of Lagrange points are verifiable in the
+rotating-frame simulation. Given no initial disturbance, a satellite can
+stay on L3, L4, and L5 virtually indefinitely (at least for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1000</mn><annotation encoding="application/x-tex">1000</annotation></semantics></math>
+Time Units or more than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>400</mn><annotation encoding="application/x-tex">400</annotation></semantics></math>
+years). However, satellite tends to wander off L1 and L2 despite no
+initial disturbance due to computational imprecision that is magnified
+by the unstable nature of their orbits, and the trajectory of the
+satellite would be visible in the rotating frame usually after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.4</mn><annotation encoding="application/x-tex">0.4</annotation></semantics></math>
+time units - the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time of L1 and L2.</p>
+<p>Such numerical imprecision and disturbance accumulation are
+manifested by the non-conservation of linear and angular momentum during
+the course of the simulation, which can be corrected by the state
+modification algorithm in Section 3.4. Given a relatively short period
+of time considered (such as tens of time units), state modification
+every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>50</mn><annotation encoding="application/x-tex">50</annotation></semantics></math>
+steps can effectively keep satellites in their orbits, and state
+modification every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+steps as in Section 4.4 can achieve near-perfect station-keeping and
+error elimination.</p>
+<p>Given an initial disturbance, all satellites around unstable Lagrange
+points tend to drift away from their orbit as time elapses, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time close to theoretical prediction. However, due to the binding nature
+of the orbit, if the initial disturbance is not sufficient, the
+satellite periodically re-approaches the original orbit. For example,
+for the case of L3 with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.00001</mn><annotation encoding="application/x-tex">0.00001</annotation></semantics></math>
+initial disturbance in Figure 5.1, the satellite first drifts far away
+from the orbit but eventually returns after almost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3000</mn><annotation encoding="application/x-tex">3000</annotation></semantics></math>
+time units
+(~<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1279</mn><annotation encoding="application/x-tex">1279</annotation></semantics></math>
+years).</p>
+<p><img src="./media/image38.png"
+style="width:5.27083in;height:2.81458in" /></p>
+<p><strong>Figure 5.1:</strong> Drift from Expected Radius vs. Time (L3
+Orbit, Actual Mass Ratio)</p>
+<p>To effectively tackle such accumulation of disturbance, the
+station-keeping algorithm can be applied, increasing the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time under the same initial disturbance for every mass ratio, as shown
+in Figure 5.2.</p>
+<p><img src="./media/image39.png"
+style="width:5.76806in;height:3.12431in" /></p>
+<p><strong>Figure 5.2:</strong> State Modification Increases e-Folding
+Time for Different Mass Ratios</p>
+<p>One important factor that impacts orbital stability is the mass ratio
+of the dominant bodies. For unstable Lagrange points, increasing the
+mass ratio enhances orbital stability as reflected by the increment of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time of a small initial disturbance. For stable Lagrange points, all
+mass ratios above the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24.95</mn><annotation encoding="application/x-tex">24.95</annotation></semantics></math>
+threshold generate stable orbits where the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time of a small initial disturbance is infinite, but as the mass ratio
+decreases under the threshold,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time becomes finite and decreases. For example, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0001</mn><annotation encoding="application/x-tex">0.0001</annotation></semantics></math>
+being the initial disturbance of a satellite near L5 with an unstable
+mass ratio of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>,
+the drifting-away process is graphed in Figure 5.3 and the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+times to different powers of e are tabled in Table 5.1.</p>
+<p><img src="./media/image40.png"
+style="width:5.70278in;height:2.90556in"
+alt="图表, 直方图 描述已自动生成" /></p>
+<p><strong>Figure 5.3:</strong> Drift from Expected Radius vs. Time (L5
+Orbit, Mass Ratio = 24)</p>
+<table>
+<caption><p><strong>Table 5.1:</strong> e-Folding Time of Different
+Powers of e for an Initial Disturbance of 0.0001 from L5 (Mass Ratio =
+24)</p></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>1</mn></mrow><annotation encoding="application/x-tex">err\  = \ 1</annotation></semantics></math></th>
+<th>16.1016101610161</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mi>e</mi></mrow><annotation encoding="application/x-tex">err\  = \ e</annotation></semantics></math></th>
+<td>29.272927292729275</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{2}</annotation></semantics></math></th>
+<td>46.424642464246425</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><msup><mi>e</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">err\  = e^{3}</annotation></semantics></math></th>
+<td>59.8959895989599</td>
+</tr>
+<tr>
+<th><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msup><mi>e</mi><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">err\  = \ e^{4}</annotation></semantics></math></th>
+<td>73.45734573457347</td>
+</tr>
+</tbody>
+</table>
+<p>Another important factor that impacts orbital stability is the
+initial disturbance vector. This paper explores the effect of initial
+displacement and velocity disturbance in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-direction
+on orbital stability, revealing that as disturbance of either type
+increases from zero, the escape time falls quickly and approaches zero,
+destabilizing the satellite's orbit. For instance, Figure 5.4
+illustrates the disordered trajectory of a satellite near L5 with an
+unstable initial displacement disturbance of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.03</mn><annotation encoding="application/x-tex">0.03</annotation></semantics></math>.</p>
+<p><img src="./media/image41.png"
+style="width:5.90625in;height:3.33681in"
+alt="图表 描述已自动生成" /></p>
+<p>Figure 5.4: Satellite Motion Near L5 (Initial Displacement
+Disturbance = 0.03)</p>
+<p>The results from the numerical integrator construction and
+experimentation in this paper have various future implications. The
+calculation of error evolution with respect to time provides a clearer
+understanding of the process of all circular restricted three-body
+problems. Moreover, the visualization of third-body motion in both
+rotating and static frames can be used for modeling three-body motion
+with different parameters. Furthermore, the experiment about the
+interrelationship between orbital stability, mass ratio, and initial
+perturbation provides a novel understanding of the motion of any third
+body over a period of time with consideration of specific conditions
+(such as instability in the positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-direction).
+Finally, the state modification algorithm can be used for precise
+modeling of station-keeping of any third object such as operating
+spacecrafts like JWST.</p>
+<h1
+id="generalization-of-coplanar-circular-restricted-three-body-problem-simulations-on-the-planetary-orbits-in-binary-systems">Generalization
+of Coplanar Circular Restricted Three-body Problem: Simulations on the
+Planetary Orbits in Binary Systems</h1>
+<p>After accounting for the coplanar circular restricted three-body
+problem, it is natural to remove some constraints so as to generalize
+our study. Actual binary star systems have two stars that correspond to
+the two dominant bodies and also planets whose mass is negligible and
+each one of which can be regarded as the third body. In most such a
+system, the two stars form a binary orbit, and the third body usually
+orbit around a central body, typically being the dominant body with
+greater mass. After the constraints of circularity and coplanarity are
+removed, we are interested in the evolution of the orbit of the third
+body, which we referentially named Pandora.</p>
+<p>To study such generalized motion, we use the widely-used
+astrophysical numerical integrator MERCURY which is based on the Fortran
+algorithm. Our simulation is set to progress with a time step of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.1</mn><annotation encoding="application/x-tex">0.1</annotation></semantics></math>
+days and an accuracy parameter of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>14</mn></mrow></msup><annotation encoding="application/x-tex">10^{- 14}</annotation></semantics></math>.
+Our simulation accounts for collision with the radius of the central
+body being
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup><mspace width="0.222em"></mspace><mi>A</mi><mi>U</mi></mrow><annotation encoding="application/x-tex">5 \times 10^{- 4}\ AU</annotation></semantics></math>
+and accounts for escapes with an ejection radius of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>3</mn></msup><mspace width="0.222em"></mspace><mi>A</mi><mi>U</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">10^{3}\ AU.</annotation></semantics></math>
+The output units are set in years. Iteration is expressed in asteroidal
+coordinates and we primarily focus on the planetary orbit’s semi-major
+axis, orbital eccentricity, and inclination angle with respect to binary
+orbit.</p>
+<h2 id="from-circular-to-elliptical">From “Circular” to
+“Elliptical”</h2>
+<p>The initial eccentricity of the binary orbit is increased from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0</mn><annotation encoding="application/x-tex">0.0</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.8</mn><annotation encoding="application/x-tex">0.8</annotation></semantics></math>
+with a step size of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.2</mn><annotation encoding="application/x-tex">0.2</annotation></semantics></math>.
+The initial inclination angle between the binary orbit is controlled to
+be zero. The mass ratio between the two dominant bodies is controlled to
+be
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>100</mn><annotation encoding="application/x-tex">100</annotation></semantics></math>.
+The semi-major axis ratio between the binary orbit and the planetary
+orbit is controlled to be
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>.</p>
+<p><img src="./media/image42.png"
+style="width:6.32014in;height:3.21597in" /></p>
+<p><strong>Figure 6.1:</strong> Eccentricity of Planetary Orbit Induced
+from Eccentricity of Binary Orbit in 2739 years</p>
+<p>When the binary orbit is set with an initial eccentricity, a non-zero
+eccentricity is induced in the planetary orbit due to a change in the
+direction of the gravitational attractions. The eccentricity in the
+planetary orbit indeed originated from the non-zero binary eccentricity
+because when the latter is zero, the planet still orbits circularly as
+time progresses (a horizontal line). In a moderate range of binary
+eccentricity, the planetary eccentricity evolves periodically. As the
+binary eccentricity increases, the eccentricity of the planetary orbit
+is induced more drastically (higher peak value and shorter period).
+Finally, when the binary system exhibits a more-than-moderate
+eccentricity, the induced planetary eccentricity becomes quasi-periodic
+and irregular due to large fluctuations in gravitational attraction.</p>
+<p><img src="./media/image43.png"
+style="width:5.95069in;height:2.57847in" /></p>
+<p><strong>Figure 6.2:</strong> Fluctuation in Planetary Semi-major Axis
+due to Excessive Eccentricity in 2739 years</p>
+<p>For all eccentricities, the inclination angle between the binary and
+the planetary orbit remains to be zero, which is trivial because the
+system is stable in the normal direction of the coplanar surface.
+However, whereas the time-evolution of the planetary semi-major axis is
+a horizontal line for binary eccentricity up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.6</mn><annotation encoding="application/x-tex">0.6</annotation></semantics></math>,
+deviation and fluctuation emerged as binary eccentricity boosted to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.8</mn><annotation encoding="application/x-tex">0.8</annotation></semantics></math>,
+as shown in Figure 6.2. This shows that excessive eccentricity can
+provide enough imbalance of gravitational attraction so as to disturb
+the stability of planetary orbit.</p>
+<p>When the ratio of the binary semi-major axis and the planetary
+semi-major axis is decreased, the disturbance and induction from binary
+eccentricity are magnified. Given a binary eccentricity of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.25</mn><annotation encoding="application/x-tex">0.25</annotation></semantics></math>,
+when the semi-major axis ratio is decreased to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
+the planetary orbit first displays an irregularly fluctuating
+quasi-periodicity and collapses due to collision after around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1400</mn><annotation encoding="application/x-tex">1400</annotation></semantics></math>
+years of running. This is because the lower semi-major axis ratio
+represents more frequent and complex encounter scenarios to both
+dominant bodies, which makes the systems to be more sensitive and
+unstable, as shown in Figure 6.3.</p>
+<p><img src="./media/image44.png"
+style="width:4.94722in;height:4.32986in" /></p>
+<p><strong>Figure 6.3:</strong> Increased Semi-Major Axis Ratio
+Magnifies the Effect of Eccentricity (collapsed after around 1400
+years)</p>
+<p>The instability of decreased semi-major axis ratio is prominent in
+high eccentricity conditions, too. For an initial binary eccentricity of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.75</mn><annotation encoding="application/x-tex">0.75</annotation></semantics></math>,
+the system collapses after a mere
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>16</mn><annotation encoding="application/x-tex">16</annotation></semantics></math>
+years under a semi-major axis ratio of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
+but survives robustly under a semi-major axis ratio of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>,
+as shown in Figure 6.3.</p>
+<p><img src="./media/image45.png"
+style="width:4.83542in;height:2.16458in" /></p>
+<p><img src="./media/image46.png"
+style="width:4.9125in;height:2.20556in" /></p>
+<p><strong>Figure 6.4:</strong> Increased Semi-Major Axis Ratio
+Increases Orbital Stability</p>
+<h2 id="from-coplanar-to-non-coplanar">From “Coplanar” to
+“Non-coplanar”</h2>
+<p>Now, the initial binary eccentricity is set to zero and our research
+focuses on the inclination angle's effect alone. The mass ratio and
+semi-major axis ratio are still
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>100</mn><annotation encoding="application/x-tex">100</annotation></semantics></math>.</p>
+<p>As shown in Figures 6.5, 6.6, and 6.7, the impact of the initial
+inclination angle between binary orbital and planetary orbital is
+roughly symmetrical about
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mn>90</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">I = 90˚</annotation></semantics></math>.</p>
+<p>Both the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">30˚</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>150</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">150˚</annotation></semantics></math>
+cases show a small-amplitude fluctuation of planetary eccentricity above
+zero, which is accompanied by similarly-high-frequency and
+small-amplitude fluctuation of inclination angle that extends strictly
+below its original value. This shows how inclination can induce
+eccentricity as well.</p>
+<p><img src="./media/image47.png"
+style="width:3.12014in;height:2.64236in" /><img
+src="./media/image48.png"
+style="width:3.11736in;height:2.64236in" /></p>
+<p><strong>Figure 6.5:</strong> Evolution of Planetary Orbit with
+Initial Inclination of 30˚ and 150˚ for 27397 years.</p>
+<p>Both the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">60˚</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">120˚</annotation></semantics></math>
+cases show periodic peaking behaviors in planetary eccentricity and
+inclination, which strictly correspond to each other's tread. The trend
+remains constant for a long period and drastically emerges at regular
+intervals. However, the period for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">60˚</annotation></semantics></math>
+is approximately
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1500</mn><annotation encoding="application/x-tex">1500</annotation></semantics></math>
+years shorter than that for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">120˚</annotation></semantics></math>,
+demonstrating that the symmetry is not perfect due to the different
+directions of the angular momentum generated from inclination.</p>
+<p><img src="./media/image49.png"
+style="width:3.09375in;height:2.71597in" /><img
+src="./media/image50.png"
+style="width:3.10556in;height:2.71736in" /></p>
+<p><strong>Figure 6.6:</strong> Evolution of Planetary Orbit with
+Initial Inclination of 60˚ and 120˚ for 27397 years. The e-I trend
+correspondence is inverse for I=60˚ but direct for I=120˚, in a way that
+eccentricity can be regarded to move in the opposite direction with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">|</mo><mi>c</mi><mi>o</mi><mi>s</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">\left| cos(I) \right|</annotation></semantics></math>,
+which will be explained in Section 6.3.</p>
+<p>Finally, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">90˚</annotation></semantics></math>
+case collapses shortly after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3000</mn><annotation encoding="application/x-tex">3000</annotation></semantics></math>
+years because the completely perpendicular orbits destabilize the
+system.</p>
+<p><img src="./media/image51.png"
+style="width:6.06944in;height:5.31181in" /></p>
+<p><strong>Figure 6.7:</strong> Evolution of Planetary Orbit with
+Initial Inclination of 90˚</p>
+<h2
+id="interaction-between-eccentricity-and-inclination-angle">Interaction
+between Eccentricity and Inclination Angle</h2>
+<p>Finally, systems with both initial binary eccentricity and initial
+inclination angle are studied. The mass ratio and semi-major axis ratio
+are still controlled to be
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>100</mn><annotation encoding="application/x-tex">100</annotation></semantics></math>.
+As shown in Figure 6.8, both eccentricity-induced large periodic
+behavior and the inclination-induced short-oscillation are observable,
+combining with each other and further decreasing each other's period
+under mutual interaction.</p>
+<p><img src="./media/image52.png"
+style="width:6.20208in;height:5.21667in" /></p>
+<p><strong>Figure 6.8:</strong> Evolution of Three-body System with Both
+Initial Eccentricity and Inclination</p>
+<p>It is observed that, while the semi-major axis is constant over time,
+eccentricity and inclination angle show opposite trends in evolution
+when the initial planetary orbit inclination is 60˚. However, as shown
+in Figure 6.6 of Section 6.2, when the inclination is 120˚, the trends
+in evolution are not opposite but in the same direction. To understand
+this, we can draw an analogy on the formality of Kozai resonance, in
+which asteroids, under the simultaneous effect of Jupiter and the Sun,
+show no secular evolution of semi-major axis but have the quantity</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>k</mi></msub><mo>=</mo><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mn>2</mn></msup></mrow></msqrt><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">H_{k} = \sqrt{1 - e^{2}}\cos(I)</annotation></semantics></math>
+(15)</p>
+<p>to remain constant [24]. For Kozai resonance this reflects
+specifically the conservation of the third Delaunay momentum, but for
+our case, it reflects the general idea of momentum conservation that can
+be used to understand the relationship between planetary eccentricity
+and inclination. Traditional studies rarely discuss the scenario of
+counterrotation where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\cos(I) &lt; 0</annotation></semantics></math>,
+but in our case with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>&gt;</mo><mn>90</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">I &gt; 90˚</annotation></semantics></math>
+covered,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">|</mo><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">\left| \cos(I) \right|</annotation></semantics></math>
+should be used to understand the scenario because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{1 - e^{2}}</annotation></semantics></math>
+cannot be negative. This way, when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>&lt;</mo><mn>90</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">I &lt; 90˚</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+decreases when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+increases, and when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90</mn><mi>˚</mi><mo>&lt;</mo><mi>I</mi><mo>&lt;</mo><mn>180</mn><mi>˚</mi></mrow><annotation encoding="application/x-tex">90˚ &lt; I &lt; 180˚</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+increases when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+increases, corresponding to our calculation results.</p>
+<h1 id="discussion-on-habitable-planets-in-binary-systems">Discussion on
+Habitable Planets in Binary Systems</h1>
+<p>In search and discussion of the potential settlement of human
+civilization and the existence of intelligent beings, the stability of
+climate and temperature conditions is a crucial factor. To be specific,
+the existence of liquid water is fundamental to the habitability of
+exoplanets, but considering that the universe has a large amount of
+water molecules such as in comets that could be brought to exoplanets
+through collision and that planets live long enough to wait for bringing
+of water molecules, it is the preservation instead of origin of liquid
+water that is crucial. This requires the temperature of the planet to be
+stable in an interval that would neither boil water into water vapor
+that might escape through the atmosphere nor condense water into ice
+that is not useful for the production and reproduction of lives.</p>
+<p>Just as the evolution of eccentricity of Earth's orbit and obliquity
+in the solar system drives Ice Ages and Interglacial Periods in
+Milanković Cycles, the average surface temperature of exoplanets is a
+function of semi-major axis, eccentricity, and angle of inclination of
+planetary orbit. Therefore, greater fluctuation in such parameters would
+lead to greater instability in climate and temperature.</p>
+<p>Most binary systems exhibit non-zero eccentricity and angle of
+inclination, whose variations are mutually inducing. This implies that
+most binary systems cannot support a stable and habitable climate. To
+verify and exemplify this, we obtained relevant orbital data from
+exoplanet catalogs of binary star systems and utilized stellar
+temperature and radius data from NASA Exoplanet Archive to estimate the
+maximum equilibrium average surface temperature
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>e</mi><mi>q</mi></mrow></msub><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">T_{eq}\ </annotation></semantics></math>
+of the exoplanets from the following equation, which is rearranged from
+the equality between the incoming black body radiation from the central
+star and the emitted black body radiation from the planet, taking
+reflection into account as well [25] [26].</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>e</mi><mi>q</mi></mrow></msub><mo>=</mo><mi>T</mi><msqrt><mfrac><mi>R</mi><mi>a</mi></mfrac></msqrt><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>A</mi><mi>b</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mn>1</mn><mn>4</mn></mfrac></msup></mrow><annotation encoding="application/x-tex">T_{eq} = T\sqrt{\frac{R}{a}}\left( 1 - A_{b} \right)^{\frac{1}{4}}</annotation></semantics></math>
+(16)</p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">T\ </annotation></semantics></math>and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+are the surface temperature and radius of the central star,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+is the planetary semi-major axis, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>b</mi></msub><annotation encoding="application/x-tex">A_{b}</annotation></semantics></math>
+is the planet’s albedo. More than a hundred binary systems are analyzed,
+and, among those with valid eccentricity data, HD 20782 b and HD 125612
+b stand out to have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mrow><mi>e</mi><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">T_{eq}</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>355.09</mn><mspace width="0.222em"></mspace><mi>K</mi></mrow><annotation encoding="application/x-tex">355.09\ K</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>352.06</mn><mspace width="0.222em"></mspace><mi>K</mi></mrow><annotation encoding="application/x-tex">352.06\ K</annotation></semantics></math>.
+However, for HD 20782 b, the high planetary orbit eccentricity (0.97)
+and low dominant body mass ratio (1.19) induce irregular fluctuation in
+the semi-major axis, as shown in Figure 6.9. On the other hand, HD
+125612 b shows a more regular periodic semi-major axis fluctuation, but
+still varies in an approximately-30%-of-baseline range, as shown in
+Figure 6.10.</p>
+<p><img src="./media/image53.png"
+style="width:5.57222in;height:2.37431in" /></p>
+<p><strong>Figure 6.9:</strong> Evolution of Orbit of HD 20782 b</p>
+<p><img src="./media/image54.png"
+style="width:5.72708in;height:2.50347in" /></p>
+<p><strong>Figure 6.10:</strong> Evolution of Orbit of HD 125612 b</p>
+<p>However, for these two cases, the planetary eccentricity and
+inclination are constant over time even under a 60˚ initial inclination
+angle. These invariabilities are presumably due to the extremely high
+semi-major axis ratios that are up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">10,000</annotation></semantics></math>.
+Nevertheless, the great variability in the planetary semi-major axis as
+in these two cases, and the great variability in planetary eccentricity
+and inclination angle as in other cases still makes most binary system
+exoplanets have unstable climates and be inhabitable. In the search for
+habitable exoplanets in binary systems, one should look for those with
+low binary and planetary eccentricity and inclination angle but with a
+high mass ratio and semi-major axis ratio.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The circular restricted three-body problem describes a dynamic
+astrophysical scenario that is crucial in areas from the operation of
+artificial spacecrafts to the clustering of celestial bodies, and its
+generalization provides essential insights into the variability and
+habitability of exoplanets in binary star systems. Based on theories of
+coordinates and stabilities of Lagrange points as well as equations of
+motion from Newtonian mechanics, this paper first constructs an original
+numerical integrator to simulate circular restricted three-body motion
+in both rotating and static frames and calculate conserved properties
+and drift radius to analyze errors and evolutions over time. Then, a
+state-modification algorithm is developed, achieving modeling of
+effective station-keeping. Next, Lagrange orbital stabilities are
+examined as a function of the mass ratio of dominant bodies and as a
+function of initial perturbations in an unstable direction, yielding a
+positive relationship in the former and a negative relationship in the
+latter and providing novel results. Finally, MERCURY is used for the
+generalization of the three-body problem into non-circular and
+non-coplanar systems, with mutual interaction and evolution of
+semi-major axis, eccentricity, and angle of inclination studied. It is
+concluded that habitable exoplanets are more likely to be found in
+binary systems with low binary and planetary orbital eccentricity and
+inclination but with high semi-major axis ratio and dominant body mass
+ratio. Future work could continue to focus on the generalized N-body
+secular evolution in the solar system and simulate the balance of
+delta-v consumption and orbital stability.</p>
+<p><strong><br />
+</strong></p>
+<h1 id="references">References</h1>
+<ol type="1">
+<li><p>McMillan, S. (2022). <em>Computational Physics II</em>.
+Drexel.edu.
+http://www.physics.drexel.edu/~steve/Courses/Comp_Phys/Physics-305/index.html</p></li>
+<li><p>Poincaré, H. “Sur Le Problème Des Trois Corps et Les Équations de
+La Dynamique.” <em>Acta</em>, vol. 13, no. 1-2, 1890.</p></li>
+<li><p>de Almeida Junior, A. K., &amp; de Almeida Prado, A. F. B.
+(2022). Comparisons between the circular restricted three-body and
+bi-circular four body problems for transfers between the two smaller
+primaries. <em>Scientific Reports</em>, <em>12</em>(1).
+https://doi.org/10.1038/s41598-022-08046-x</p></li>
+<li><p>Westra, D. (2017). <em>Lagrangian Points</em>.
+https://www.mat.univie.ac.at/~westra/lagrangepoints.pdf</p></li>
+<li><p>Weisstein, E. (2022). <em>Lagrange Points</em>. Wolfram.com;
+Wolfram Research, Inc.
+https://scienceworld.wolfram.com/physics/LagrangePoints.html</p></li>
+<li><p>Cornish, N. (1998). <em>The Lagrange Points</em>. <a
+href="https://map.gsfc.nasa.gov/ContentMedia/lagrange.pdf">https://map.gsfc.nasa.gov/ContentMedia/lagrange.pdf</a></p></li>
+<li><p>NASA. (2018). <em>What is a Lagrange Point? | NASA Solar System
+Exploration</em>. NASA Solar System Exploration.
+https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/</p></li>
+<li><p>Valtonen, MAURI, and Hannu Karttunen. <em>The Three-Body
+Problem</em>. Cambridge, Uk ; New York, Cambridge University Press,
+2006.</p></li>
+<li><p>NASA. (2022). <em>Solar and Heliospheric Observatory
+Homepage</em>. Nasa.gov. <a
+href="https://soho.nascom.nasa.gov/">https://soho.nascom.nasa.gov/</a></p></li>
+<li><p>Caltech. (2016). <em>Advanced Composition Explorer (ACE) Home
+Page</em>. Caltech.edu. <a
+href="https://izw1.caltech.edu/ACE/">https://izw1.caltech.edu/ACE/</a></p></li>
+<li><p>NOAA. (2015). <em>DSCOVR: Deep Space Climate Observatory</em>.
+NESDIS. <a
+href="https://www.nesdis.noaa.gov/current-satellite-missions/currently-flying/dscovr-deep-space-climate-observatory">https://www.nesdis.noaa.gov/current-satellite-missions/currently-flying/dscovr-deep-space-climate-observatory</a></p></li>
+<li><p>ESA. (2022). <em>Gaia overview</em>. Esa.int. <a
+href="https://www.esa.int/Science_Exploration/Space_Science/Gaia_overview">https://www.esa.int/Science_Exploration/Space_Science/Gaia_overview</a></p></li>
+<li><p>Kramer, H. (2021). <em>Spektr-RG/SRG - Satellite Missions -
+eoPortal Directory</em>. Eoportal.org. <a
+href="https://directory.eoportal.org/web/eoportal/satellite-missions/s/spektrg-srg">https://directory.eoportal.org/web/eoportal/satellite-missions/s/spektrg-srg</a></p></li>
+<li><p>Dichmann, D. J., Alberding, C. M., &amp; Yu, W. H. (2014, May
+5). <em>Stationkeeping Monte Carlo Simulation for the James Webb Space
+Telescope</em>. Nasa.gov.
+https://ntrs.nasa.gov/citations/20140007519</p></li>
+<li><p>NASA. (2022). <em>Orbit - Webb/NASA</em>. Nasa.gov. <a
+href="https://www.jwst.nasa.gov/content/about/orbit.html">https://www.jwst.nasa.gov/content/about/orbit.html</a></p></li>
+<li><p>STScI. (2017, May 17). <em>JWST Momentum Management - JWST User
+Documentation</em>. Stsci.edu.
+https://jwst-docs.stsci.edu/jwst-observatory-hardware/jwst-momentum-management</p></li>
+<li><p>Bartels, M. (2022, June 8). <em>James Webb Space Telescope hit by
+micrometeoroid just months into flight</em>. Space.com; Space. <a
+href="https://www.space.com/james-webb-space-telescope-suffers-micrometeoroid-impacts">https://www.space.com/james-webb-space-telescope-suffers-micrometeoroid-impacts</a></p></li>
+<li><p>Fisher, A., &amp; NASA. (2022, May 10). <em>Incredibly Sharp Webb
+Space Telescope Test Images Hint at New Possibilities for Science</em>.
+SciTechDaily. <a
+href="https://scitechdaily.com/incredibly-sharp-webb-space-telescope-test-images-hint-at-new-possibilities-for-science/">https://scitechdaily.com/incredibly-sharp-webb-space-telescope-test-images-hint-at-new-possibilities-for-science/</a></p></li>
+<li><p>Paul Scott Anderson. (2017, February 7). <em>NASA’s OSIRIS-REx
+Spacecraft to Search for Trojan Asteroids Near Earth -
+AmericaSpace</em>. AmericaSpace - for Space Explorers. <a
+href="https://www.americaspace.com/2017/02/06/nasas-osiris-rex-spacecraft-to-search-for-trojan-asteroids-near-earth/">https://www.americaspace.com/2017/02/06/nasas-osiris-rex-spacecraft-to-search-for-trojan-asteroids-near-earth/</a></p></li>
+<li><p>Dahle, M., Hugdal, H., Ånex, H., &amp; Berg, P.
+(2018). <em>Lagrange Points</em>.
+Numfys.net.https://nbviewer.org/urls/www.numfys.net/media/notebooks/lagrange_points.ipynb</p></li>
+<li><p>Greenspan, T. (2014). <em>Stability of the Lagrange Points, L 4
+and L 5</em>. <a
+href="http://pi.math.cornell.edu/~templier/junior/final_paper/Thomas_Greenspan-Stability_of_Lagrange_points.pdf">http://pi.math.cornell.edu/~templier/junior/final_paper/Thomas_Greenspan-Stability_of_Lagrange_points.pdf</a></p></li>
+<li><p>Brown, J., Petersen, J., Villac, B., &amp; Yu, W.
+(n.d.). <em>SEASONAL VARIATIONS OF THE JAMES WEBB SPACE TELESCOPE
+ORBITAL DYNAMICS</em>. Retrieved July 2, 2022, from
+https://ntrs.nasa.gov/api/citations/20150017756/downloads/20150017756.pdf</p></li>
+<li><p>‌Nave, R. (2022). <em>Lagrange Points of the Earth-Moon
+System</em>. Gsu.edu.
+http://hyperphysics.phy-astr.gsu.edu/hbase/Mechanics/lagpt.html</p></li>
+<li><p>Murray, Carl D, and Stanley F Dermott. <em>Solar System
+Dynamics</em>. Cambridge University Press, 13 Feb. 2000, p.
+316.</p></li>
+<li><p>Schwarz, R. (2022, May). <em>Catalogue of Exoplanets in Binary
+Star Systems</em>. Univie.ac.at.
+https://adg.univie.ac.at/schwarz/multiple.html</p></li>
+<li><p>California Institute of Technology. (2023). <em>NASA Exoplanet
+Archive</em>. Caltech.edu.
+https://exoplanetarchive.ipac.caltech.edu/</p></li>
+</ol>
+<p><span id="_Toc19644"
+class="anchor"></span><strong>Acknowledgement</strong></p>
+<p>The project in this paper on coplanar circular restricted three-body
+is inspired by the time when the James Webb Space Telescope was about to
+arrive at the Lagrange point of Earth and to start its stabler and
+relatively safer orbiting. Then, inspired by the popular movie
+<em>Avatar</em> and science fiction <em>The Three-Body Problem</em>, I
+was intrigued and felt obliged to extend my study to non-circular and
+non-coplanar three-body scenarios so as to provide insights and solid
+results on the stability of evolution of planetary orbits in actual and
+more general star systems in the universe.</p>
+<p>Although participating as a team of one person, I received valuable
+support from many. I would pay great appreciation to my guidance
+teacher, Feng Xiaoqin, who helped me to check the validity of my
+theoretical derivation. She is my physics teacher at school. As a doctor
+who specializes in chaotic systems, her insights and confirmation on my
+theoretical deduction of stability analysis made me a lot more
+confident. I also appreciate her guiding me in terms of the writing of
+my paper, specifically clarifying the structure of method-results
+correspondence. I would also thank Professor Andrew Haas at New York
+university, my teacher at the Pioneer Program on computational physics,
+for affirming my topic selection, teaching me fundamental error analysis
+techniques in computational physics, and inspiring me to conduct
+experiments in static frame instead of rotating frame.</p>
+<h1 id="appendix">Appendix</h1>
+<p><strong>A.1 Equation of Motion in Rotating Frame</strong></p>
+<p>In the co-rotating frame illustrated in Figure 2.1, Newton’s Law of
+Gravitation of the two dominant bodies gives</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>G</mi><msub><mi>m</mi><mi>s</mi></msub><msub><mi>m</mi><mi>e</mi></msub></mrow><mrow><mo stretchy="false" form="prefix">(</mo><msup><mrow><msub><mi>d</mi><mi>s</mi></msub><mo>+</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac><mo>=</mo><msub><mi>m</mi><mi>s</mi></msub><msup><mi>ω</mi><mn>2</mn></msup><msub><mi>d</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">\frac{Gm_{s}m_{e}}{({d_{s} + d_{e})}^{2}} = m_{s}\omega^{2}d_{s}</annotation></semantics></math>
+(A1)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>G</mi><msub><mi>m</mi><mi>s</mi></msub><msub><mi>m</mi><mi>e</mi></msub></mrow><mrow><mo stretchy="false" form="prefix">(</mo><msup><mrow><msub><mi>d</mi><mi>s</mi></msub><mo>+</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac><mo>=</mo><msub><mi>m</mi><mi>e</mi></msub><msup><mi>ω</mi><mn>2</mn></msup><msub><mi>d</mi><mi>e</mi></msub></mrow><annotation encoding="application/x-tex">\frac{Gm_{s}m_{e}}{({d_{s} + d_{e})}^{2}} = m_{e}\omega^{2}d_{e}</annotation></semantics></math>
+(A2)</p>
+<p>Therefore, the frame co-rotating with the dominant bodies has an
+angular frequency</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo>=</mo><msqrt><mfrac><mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>s</mi></msub><mo>+</mo><msub><mi>m</mi><mi>e</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mo stretchy="false" form="prefix">(</mo><msup><mrow><msub><mi>d</mi><mi>s</mi></msub><mo>+</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mn>3</mn></msup></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\omega = \sqrt{\frac{G\left( m_{s} + m_{e} \right)}{({d_{s} + d_{e})}^{3}}}</annotation></semantics></math>
+(A3)</p>
+<p>In a static frame, the linear velocity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐯</mi><mn>𝟏</mn></msub><annotation encoding="application/x-tex">\mathbf{v}_{\mathbf{1}}</annotation></semantics></math>
+of an object is given by</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐯</mi><mn>𝟏</mn></msub><mo>=</mo><mfrac><mrow><mi>D</mi><mi>𝐫</mi></mrow><mrow><mi>D</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>𝛚</mi><mo>×</mo><mi>𝐫</mi></mrow><annotation encoding="application/x-tex">\mathbf{v}_{\mathbf{1}} = \frac{D\mathbf{r}}{Dt} = \mathbf{\omega} \times \mathbf{r}</annotation></semantics></math>
+(A4)</p>
+<p>where
+capital<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace width="0.222em"></mspace><mi>D</mi></mrow><annotation encoding="application/x-tex">\ D</annotation></semantics></math>
+means differential in the static frame and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐫</mi><annotation encoding="application/x-tex">\mathbf{r}</annotation></semantics></math>
+is the static-frame position vector. In a rotating frame, the velocity
+must account for the rotation of the frame itself as well.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐯</mi><mn>𝟐</mn></msub><mo>=</mo><mfrac><mrow><mi>D</mi><mi>𝐫</mi></mrow><mrow><mi>D</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>d</mi><mi>𝐫</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mrow><mi mathvariant="bold">+</mi><mi>𝛚</mi></mrow><mo>×</mo><mi>𝐫</mi></mrow><annotation encoding="application/x-tex">\mathbf{v}_{\mathbf{2}} = \frac{D\mathbf{r}}{Dt} = \frac{d\mathbf{r}}{dt}\mathbf{+ \omega} \times \mathbf{r}</annotation></semantics></math>
+(A5)</p>
+<p>where lowercase
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+is differential in the rotating frame. Hence, the acceleration in the
+rotational frame can be derived</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐚</mi><mo>=</mo><mfrac><mrow><mi>D</mi><msub><mi>𝐯</mi><mn>𝟐</mn></msub></mrow><mrow><mi>D</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mfrac><mi>D</mi><mrow><mi>D</mi><mi>t</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>d</mi><mi>𝐫</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mrow><mi mathvariant="bold">+</mi><mi>𝛚</mi></mrow><mo>×</mo><mi>𝐫</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mi>D</mi><mrow><mi>D</mi><mi>t</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>d</mi><mi>𝐫</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mfrac><mi>D</mi><mrow><mi>D</mi><mi>t</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝛚</mi><mo>×</mo><mi>𝐫</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><msup><mi>d</mi><mn>2</mn></msup><mi>𝐫</mi></mrow><mrow><mi>d</mi><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mo>+</mo><mn>2</mn><mi>𝛚</mi><mo>×</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>d</mi><mi>𝐫</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>𝛚</mi><mo>×</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝛚</mi><mo>×</mo><mi>𝐫</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{a} = \frac{D\mathbf{v}_{\mathbf{2}}}{Dt} = \frac{D}{Dt}\left( \frac{d\mathbf{r}}{dt}\mathbf{+ \omega} \times \mathbf{r} \right) = \frac{D}{Dt}\left( \frac{d\mathbf{r}}{dt} \right) + \frac{D}{Dt}\left( \mathbf{\omega} \times \mathbf{r} \right) = \frac{d^{2}\mathbf{r}}{dt^{2}} + 2\mathbf{\omega} \times \left( \frac{d\mathbf{r}}{dt} \right) + \mathbf{\omega} \times \left( \mathbf{\omega} \times \mathbf{r} \right)</annotation></semantics></math>
+(A6)</p>
+<p>Writing out Newton’s Second Law and resolving for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
+(in this paper the derivation focuses on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-direction,
+but the derivation is similar for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>)
+gives</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mrow><msup><mi>d</mi><mn>2</mn></msup><mi>𝐫</mi></mrow><mrow><mi>d</mi><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>+</mo><mn>2</mn><mi>𝛚</mi><mo>×</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>d</mi><mi>𝐫</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>+</mo><mi>𝛚</mi><mo>×</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝛚</mi><mo>×</mo><mi>𝐫</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>−</mi><mfrac><mrow><mi>G</mi><msub><mi>m</mi><mi>s</mi></msub></mrow><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mover><msub><mi>r</mi><mi>s</mi></msub><mo accent="true">̂</mo></mover><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>−</mo><mfrac><mrow><mi>G</mi><msub><mi>m</mi><mi>e</mi></msub></mrow><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mover><msub><mi>r</mi><mi>e</mi></msub><mo accent="true">̂</mo></mover><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">a \cdot \widehat{x} = \frac{d^{2}\mathbf{r}}{dt^{2}} \cdot \widehat{x} + 2\mathbf{\omega} \times \left( \frac{d\mathbf{r}}{dt} \right) \cdot \widehat{x} + \mathbf{\omega} \times \left( \mathbf{\omega} \times \mathbf{r} \right) \cdot \widehat{x} = - \frac{Gm_{s}}{{r_{s}}^{2}}\widehat{r_{s}} \cdot \widehat{x} - \frac{Gm_{e}}{{r_{e}}^{2}}\widehat{r_{e}} \cdot \widehat{x}</annotation></semantics></math>
+(A7)</p>
+<p>Computing each part of the equation above and changing the
+representation yields</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>x</mi><mo accent="true">̈</mo></mover><mo>−</mo><mn>2</mn><mi>ω</mi><mover><mi>y</mi><mo accent="true">̇</mo></mover><mo>−</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>x</mi><mo>=</mo><mi>−</mi><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>3</mn></msup></mfrac><msub><mi>𝐫</mi><mi>𝐬</mi></msub><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>−</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>3</mn></msup></mfrac><msub><mi>𝐫</mi><mi>𝐞</mi></msub><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">\ddot{x} - 2\omega\dot{y} - \omega^{2}x = - \frac{\mu_{s}}{{r_{s}}^{3}}\mathbf{r}_{\mathbf{s}} \cdot \widehat{x} - \frac{\mu_{e}}{{r_{e}}^{3}}\mathbf{r}_{\mathbf{e}} \cdot \widehat{x}</annotation></semantics></math>
+(A8)</p>
+<p>Referring back to Figure 2.1,</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐫</mi><mi>𝐬</mi></msub><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>x</mi><mo>+</mo><msub><mi>d</mi><mi>s</mi></msub><mspace width="0.222em"></mspace><mspace width="0.222em"></mspace><mo>;</mo><msub><mrow><mspace width="0.222em"></mspace><mspace width="0.222em"></mspace><mi>𝐫</mi></mrow><mi>𝐞</mi></msub><mo>⋅</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>x</mi><mo>−</mo><msub><mi>d</mi><mi>e</mi></msub><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">\mathbf{r}_{\mathbf{s}} \cdot \widehat{x} = x + d_{s}\ \ ;\mathbf{\ \ r}_{\mathbf{e}} \cdot \widehat{x} = x - d_{e}\ </annotation></semantics></math>
+(A9)</p>
+<p>which translates the above equation into</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>x</mi><mo accent="true">̈</mo></mover><mo>−</mo><mn>2</mn><mi>ω</mi><mover><mi>y</mi><mo accent="true">̇</mo></mover><mo>=</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>x</mi><mo>−</mo><mfrac><mrow><msub><mi>μ</mi><mi>s</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>+</mo><msub><mi>d</mi><mi>s</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><msub><mi>r</mi><mi>s</mi></msub><mn>3</mn></msup></mfrac><mo>−</mo><mfrac><mrow><msub><mi>μ</mi><mi>e</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><msub><mi>r</mi><mi>e</mi></msub><mn>3</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">\ddot{x} - 2\omega\dot{y} = \omega^{2}x - \frac{\mu_{s}\left( x + d_{s} \right)}{{r_{s}}^{3}} - \frac{\mu_{e}\left( x - d_{e} \right)}{{r_{e}}^{3}}</annotation></semantics></math>
+(A10)</p>
+<p>Performing the same derivation on the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>-direction
+completes a system of ODE to be solved over an interval of time for
+tracking the trajectory of satellites as the third object in the
+rotating frame [6].</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>u</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>y</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>v</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>u</mi><mo accent="true">̇</mo></mover><mo>=</mo><mn>2</mn><mi>ω</mi><mi>v</mi><mo>+</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>s</mi></msub><mfrac><mrow><mi>x</mi><mo>+</mo><msub><mi>μ</mi><mi>e</mi></msub></mrow><msup><msub><mi>r</mi><mi>s</mi></msub><mn>3</mn></msup></mfrac><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub><mfrac><mrow><mi>x</mi><mo>−</mo><msub><mi>μ</mi><mi>s</mi></msub></mrow><msup><msub><mi>r</mi><mi>e</mi></msub><mn>3</mn></msup></mfrac></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>v</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>−</mi><mn>2</mn><mi>ω</mi><mi>u</mi><mo>+</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>y</mi><mo>−</mo><msub><mi>μ</mi><mi>s</mi></msub><mfrac><mi>y</mi><msup><msub><mi>r</mi><mi>s</mi></msub><mn>3</mn></msup></mfrac><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub><mfrac><mi>y</mi><msup><msub><mi>r</mi><mi>e</mi></msub><mn>3</mn></msup></mfrac></mtd></mtr></mtable></mrow><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">\left\{ \begin{array}{r}
+\dot{x} = u \\
+\dot{y} = v \\
+\dot{u} = 2\omega v + \omega^{2}x - \mu_{s}\frac{x + \mu_{e}}{{r_{s}}^{3}} - \mu_{e}\frac{x - \mu_{s}}{{r_{e}}^{3}} \\
+\dot{v} = - 2\omega u + \omega^{2}y - \mu_{s}\frac{y}{{r_{s}}^{3}} - \mu_{e}\frac{y}{{r_{e}}^{3}}
+\end{array} \right.\ </annotation></semantics></math> (A11)</p>
+<p><strong>A.2 Location of the Lagrange Points</strong></p>
+<p>Now, to locate the Lagrange points, the points with zero gradient of
+the effective potential in the rotating frame must be found. The
+potential function is as follows [6].</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>−</mi><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mi>ω</mi><mn>2</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msub><mi>r</mi><mi>s</mi></msub></mfrac><mo>−</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msub><mi>r</mi><mi>e</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">V = - \frac{1}{2}\omega^{2}\left( x^{2} + y^{2} \right) - \frac{\mu_{s}}{r_{s}} - \frac{\mu_{e}}{r_{e}}</annotation></semantics></math>
+(A12)</p>
+<p>Keeping in mind that</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>s</mi></msub><mo>=</mo><msqrt><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>+</mo><msub><mi>d</mi><mi>s</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mo>,</mo><msub><mi>r</mi><mi>e</mi></msub><mo>=</mo><msqrt><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">r_{s} = \sqrt{(x + d_{s})^{2} + y^{2}},r_{e} = \sqrt{(x - d_{e})^{2} + y^{2}}</annotation></semantics></math>
+(A13)</p>
+<p>Then, the negative effective potential gradient is given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>−</mi><mfrac><mrow><mi>∂</mi><mi>V</mi></mrow><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac><mo>=</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>x</mi><mo>−</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mo>•</mo><mfrac><mrow><mi>∂</mi><msub><mi>r</mi><mi>s</mi></msub></mrow><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac><mo>−</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mo>•</mo><mfrac><mrow><mi>∂</mi><msub><mi>r</mi><mi>e</mi></msub></mrow><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac></mrow><mrow><mo>=</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>x</mi><mo>−</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mo>•</mo><mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>+</mo><msub><mi>d</mi><mi>s</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>r</mi><mi>s</mi></msub></mfrac><mo>−</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mo>•</mo><mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>d</mi><mi>e</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>r</mi><mi>e</mi></msub></mfrac></mrow></mrow><annotation encoding="application/x-tex">{- \frac{\partial V}{\partial x} = \omega^{2}x - \frac{\mu_{s}}{{r_{s}}^{2}} \bullet \frac{\partial r_{s}}{\partial x} - \frac{\mu_{s}}{{r_{e}}^{2}} \bullet \frac{\partial r_{e}}{\partial x}
+}{= \omega^{2}x - \frac{\mu_{s}}{{r_{s}}^{2}} \bullet \frac{\left( x + d_{s} \right)}{r_{s}} - \frac{\mu_{e}}{{r_{e}}^{2}} \bullet \frac{\left( x - d_{e} \right)}{r_{e}}
+}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mover><mi>x</mi><mo accent="true">̈</mo></mover><mo>−</mo><mn>2</mn><mi>ω</mi><mover><mi>y</mi><mo accent="true">̇</mo></mover></mrow><annotation encoding="application/x-tex">= \ddot{x} - 2\omega\dot{y}</annotation></semantics></math>
+(A14)</p>
+<p>By the same procedure, the gradient for the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>-direction
+can be obtained [20].</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mfrac><mrow><mi>∂</mi><mi>V</mi></mrow><mrow><mi>∂</mi><mi>y</mi></mrow></mfrac><mo>=</mo><mover><mi>y</mi><mo accent="true">̈</mo></mover><mo>+</mo><mn>2</mn><mi>ω</mi><mover><mi>x</mi><mo accent="true">̇</mo></mover></mrow><annotation encoding="application/x-tex">- \frac{\partial V}{\partial y} = \ddot{y} + 2\omega\dot{x}</annotation></semantics></math>
+(A15)</p>
+<p>Solving for zero effective potential gradient from the above two
+equations gives the coordinates of the Lagrange points [20]. In this
+case, the Earth is on the positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-axis
+and the Sun is on the negative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-axis.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>1</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mroot><mfrac><msub><mi>μ</mi><mi>e</mi></msub><mn>3</mn></mfrac><mn>3</mn></mroot><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L1:\left( 1 - \sqrt[3]{\frac{\mu_{e}}{3}},0 \right)</annotation></semantics></math>
+(A16)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>2</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mroot><mfrac><msub><mi>μ</mi><mi>e</mi></msub><mn>3</mn></mfrac><mn>3</mn></mroot><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L2:\left( 1 + \sqrt[3]{\frac{\mu_{e}}{3}},0 \right)</annotation></semantics></math>
+(A17)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>3</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>−</mo><mfrac><mrow><mn>5</mn><msub><mi>μ</mi><mi>e</mi></msub></mrow><mn>12</mn></mfrac><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L3:\left( - 1 - \frac{5\mu_{e}}{12},0 \right)</annotation></semantics></math>
+(A18)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>4</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msub><mi>μ</mi><mi>s</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub></mrow><mn>2</mn></mfrac><mo>,</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L4:\left( \frac{\mu_{s} - \mu_{e}}{2},\frac{\sqrt{3}}{2} \right)</annotation></semantics></math>
+(A19)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mn>5</mn><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msub><mi>μ</mi><mi>s</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>e</mi></msub></mrow><mn>2</mn></mfrac><mo>,</mo><mi>−</mi><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L5:\left( \frac{\mu_{s} - \mu_{e}}{2}, - \frac{\sqrt{3}}{2} \right)</annotation></semantics></math>
+(A20)</p>
+<p><strong>A.3 Equation of Motion in Static Frame</strong></p>
+<p>The acceleration in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>-direction
+in the static frame is simply the resolution of the gravitational
+acceleration on the axes. There's a phase difference of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>
+between the angle of the position and the angle of the acceleration to
+the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-axis.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>u</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>y</mi><mo accent="true">̇</mo></mover><mo>=</mo><mi>v</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>u</mi><mo accent="true">̇</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>π</mi><mo>+</mo><msup><mo>tan</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mfrac><mi>y</mi><mi>x</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>v</mi><mo accent="true">̇</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>μ</mi><mi>s</mi></msub><msup><msub><mi>r</mi><mi>s</mi></msub><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><msub><mi>μ</mi><mi>e</mi></msub><msup><msub><mi>r</mi><mi>e</mi></msub><mn>2</mn></msup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>sin</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>π</mi><mo>+</mo><msup><mo>tan</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mfrac><mi>y</mi><mi>x</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable></mrow><mspace width="0.222em"></mspace></mrow><annotation encoding="application/x-tex">\left\{ \begin{array}{r}
+\dot{x} = u \\
+\dot{y} = v \\
+\dot{u} = \left( \frac{\mu_{s}}{{r_{s}}^{2}} + \frac{\mu_{e}}{{r_{e}}^{2}} \right)\cos\left( \pi + \tan^{- 1}\frac{y}{x} \right) \\
+\dot{v} = \left( \frac{\mu_{s}}{{r_{s}}^{2}} + \frac{\mu_{e}}{{r_{e}}^{2}} \right)\sin\left( \pi + \tan^{- 1}\frac{y}{x} \right)
+\end{array} \right.\ </annotation></semantics></math> (A21)</p>
+<p><strong>A.4 Stability Analysis</strong></p>
+<p>The eigenvalue of the linearized evolution matrix that describes the
+motion of satellites near each Lagrange point is solved [21].</p>
+<p>For L1 and L2, there is a positive real root,</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mo>+</mo></msub><mo>=</mo><mi>ω</mi><msqrt><mrow><mn>1</mn><mo>+</mo><mn>2</mn><msqrt><mn>7</mn></msqrt></mrow></msqrt></mrow><annotation encoding="application/x-tex">\lambda_{+} = \omega\sqrt{1 + 2\sqrt{7}}</annotation></semantics></math>
+(A22)</p>
+<p>which suggests that L1 is unstable and any small perturbation will
+grow with an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mn>1</mn><msub><mi>λ</mi><mo>+</mo></msub></mfrac><annotation encoding="application/x-tex">\frac{1}{\lambda_{+}}</annotation></semantics></math>,
+which for the solar system is approximately
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math>
+days [6].</p>
+<p>For L3, there’s also a positive real root,</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mo>+</mo></msub><mo>=</mo><mi>ω</mi><msqrt><mfrac><mrow><mn>3</mn><msub><mi>m</mi><mi>s</mi></msub></mrow><mrow><mn>8</mn><msub><mi>m</mi><mi>e</mi></msub></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\lambda_{+} = \omega\sqrt{\frac{3m_{s}}{8m_{e}}}</annotation></semantics></math>
+(A23)</p>
+<p>which, in the context of the solar system, gives an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>-folding
+time of approximately
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math>
+years [6].</p>
+<p>Finally, for L4 and L5, the eigenvalues are,</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mo>±</mo></msub><mo>=</mo><mi>±</mi><mi>i</mi><mfrac><mi>ω</mi><mn>2</mn></mfrac><msqrt><mrow><mn>2</mn><mo>−</mo><msqrt><mrow><mn>27</mn><msup><mi>κ</mi><mn>2</mn></msup><mo>−</mo><mn>23</mn></mrow></msqrt></mrow></msqrt></mrow><annotation encoding="application/x-tex">\lambda_{\pm} = \pm i\frac{\omega}{2}\sqrt{2 - \sqrt{27\kappa^{2} - 23}}</annotation></semantics></math>
+(A24)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mo>±</mo></msub><mo>=</mo><mi>±</mi><mi>i</mi><mfrac><mi>ω</mi><mn>2</mn></mfrac><msqrt><mrow><mn>2</mn><mo>+</mo><msqrt><mrow><mn>27</mn><msup><mi>κ</mi><mn>2</mn></msup><mo>−</mo><mn>23</mn></mrow></msqrt></mrow></msqrt></mrow><annotation encoding="application/x-tex">\sigma_{\pm} = \pm i\frac{\omega}{2}\sqrt{2 + \sqrt{27\kappa^{2} - 23}}</annotation></semantics></math>
+(A25)</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo>=</mo><mfrac><mrow><msub><mi>m</mi><mi>s</mi></msub><mo>−</mo><msub><mi>m</mi><mi>e</mi></msub></mrow><mrow><msub><mi>m</mi><mi>s</mi></msub><mo>+</mo><msub><mi>m</mi><mi>e</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\kappa = \frac{m_{s} - m_{e}}{m_{s} + m_{e}}</annotation></semantics></math>.
+L4 and L5 are stable if all roots are purely imaginary. First, this
+requires
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>27</mn><msup><mi>κ</mi><mn>2</mn></msup><mo>−</mo><mn>23</mn></mrow></msqrt><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\sqrt{27\kappa^{2} - 23} \leq 2</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>κ</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|\kappa| &lt; 1</annotation></semantics></math>,
+this condition is always satisfied. Second, this requires
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>27</mn><msup><mi>κ</mi><mn>2</mn></msup><mo>−</mo><mn>23</mn><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">27\kappa^{2} - 23 \geq 0</annotation></semantics></math>,
+which gives our constraining threshold mass ratio,</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub></mfrac><mo>≥</mo><mfrac><mrow><mn>25</mn><mo>+</mo><mn>3</mn><msqrt><mn>69</mn></msqrt></mrow><mn>2</mn></mfrac><mo>≈</mo><mn>24.9599</mn></mrow><annotation encoding="application/x-tex">\frac{m_{1}}{m_{2}} \geq \frac{25 + 3\sqrt{69}}{2} \approx 24.9599</annotation></semantics></math>
+(A26)</p>
+<p>below which L4 and L5 become unstable Lagrange points [21].</p>
+</body>
+</html>
