@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import PancakeSimulator from "@/components/PancakeSimulator";
+import { InlineMath, BlockMath } from "@/components/Math";
 
 export default function PancakeProject() {
   const [view, setView] = useState<"simulation" | "theory">("simulation");
@@ -58,46 +59,63 @@ export default function PancakeProject() {
         <>
           <section>
             <p className="text-zinc-400 text-sm mb-6 max-w-3xl leading-relaxed">
-              The dish (its centre marked by the amber stick, which points the way
-              it&apos;s being stirred) is swirled in a small circle. Each ball
-              spins on its own axis (the dark tick) and the whole swarm slowly
-              rotates about its centre of mass — the{" "}
-              <strong className="text-zinc-200">white dot</strong>. Watch the
-              readout: at low{" "}
-              <strong className="text-zinc-200">N</strong> the swarm rotation is{" "}
+              The view defaults to the <strong className="text-zinc-200">Lab frame</strong> —
+              what you actually see: the dish centre (red dot) orbits the swirl axis
+              while the dish itself never spins. The{" "}
+              <span className="text-amber-300">amber dot</span> is a point painted on
+              the dish rim, so it keeps a fixed orientation here and only sweeps
+              around in the M-frame. Switch to the{" "}
+              <strong className="text-zinc-200">M-frame</strong> — the frame
+              co-rotating with the swirl, in which the dish stands still and the
+              system settles into a steady state — or the{" "}
+              <strong className="text-zinc-200">Dish frame</strong>, which follows
+              the dish centre without rotating with it (the wall is then a fixed
+              circle and you can watch the cluster slosh and pile toward the far
+              side). Each ball spins on its own axis (the dark tick) and
+              the whole swarm rotates about its centre of mass — the{" "}
+              <strong className="text-zinc-200">white dot</strong>. The readout
+              shows the lab-frame rotation Ω: at low{" "}
+              <strong className="text-zinc-200">N</strong> it is{" "}
               <span className="text-emerald-400">green (co-rotating)</span>; raise{" "}
-              N past the jamming point and it turns{" "}
+              N past the jamming point and it tips{" "}
               <span className="text-orange-400">orange (counter-rotating)</span>.
-              Or hit <strong className="text-zinc-200">Sweep N</strong> to plot the
-              whole transition.
+              Use <strong className="text-zinc-200">Plot Ω vs N</strong> to trace
+              the whole transition.
             </p>
 
             <PancakeSimulator />
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3 text-sm text-zinc-400">
               <Tip title="Few balls: co-rotation">
-                Loosely packed balls are simply dragged along by friction with the
-                moving wall, so the swarm drifts the same way you stir.
+                A loose cluster lets each wall ball roll and spin freely, acting as
+                a bearing. The pack slips on the wall and is carried gently the
+                same way you stir.
               </Tip>
               <Tip title="Many balls: counter-rotation">
-                Once the balls jam into a rigid pancake, the wall rolls around its
-                rim instead of dragging it — and a disc with something rolling
-                around its edge spins backwards.
+                Dense packing frustrates the balls&apos; spins, so they can no
+                longer roll — the cluster sticks to the wall (no-slip) and
+                treadmills around its rim, which forces it to spin backwards.
               </Tip>
-              <Tip title="Friction sets the balance">
-                Wall friction drives co-rotation; ball–ball friction stiffens the
-                pack. Slide both to move the tipping point.
+              <Tip title="Both frictions are essential">
+                Set wall friction <em>or</em> ball–ball friction to zero and the
+                transition vanishes — the swarm just co-rotates at every N, exactly
+                as the experiments found.
               </Tip>
             </div>
           </section>
 
           <p className="mt-8 max-w-3xl text-xs text-zinc-600 leading-relaxed">
-            The simulation runs the same physics as the research code, rebuilt and
-            corrected: elastic normal collisions with a Coulomb-friction
-            tangential impulse (and a stick limit), a properly swirled wall, and
-            the swarm&apos;s rotation measured about its own centre of mass. The
-            original notebook never integrated to a solution; this one does, in
-            your browser.
+            The engine follows Lee&nbsp;et&nbsp;al., <em>Phys. Rev. E</em>{" "}
+            <strong className="text-zinc-500">100</strong>, 012903 (2019):
+            frictionless floor, elastic normal collisions, a Coulomb-friction
+            tangential impulse with a Wang–Mason stick clamp, and the same disc
+            moment of inertia (I = 10). It integrates in the M-frame with explicit
+            centrifugal and Coriolis forces, so even small clusters settle against
+            the wall and reach steady state. Run live, it reproduces the paper&apos;s
+            headline results: a co→counter transition with N, an earlier transition
+            at higher friction, and — the decisive test — <em>no</em> counter-rotation
+            when either friction is switched off. (A small restitution replaces the
+            paper&apos;s exact event-driven scheme for real-time stability.)
           </p>
         </>
       ) : (
@@ -118,13 +136,30 @@ export default function PancakeProject() {
 
           <Writeup title="The swirled frame">
             <p>
-              It helps to ride along in the frame that rotates with the swirl (the
-              “M-frame”). A body that doesn&apos;t rotate in the lab rotates at −ω
-              in this frame, so the container&apos;s wall sweeps around at constant
-              −ω. Two fictitious forces appear — Coriolis (2 v×ω) and centrifugal
-              (ω×(x×ω)). The centrifugal term pushes the balls outward into a
-              packed cluster against one side of the wall; the Coriolis term is
-              what ultimately biases the cluster&apos;s spin one way or the other.
+              The trick that makes the problem tractable — due to Lee et al. — is to
+              ride along in the frame that rotates with the swirl (the{" "}
+              <strong className="text-zinc-200">M-frame</strong>). A body that
+              doesn&apos;t rotate in the lab rotates at −ω in this frame, so the
+              container&apos;s wall sweeps around its own centre at a constant{" "}
+              <InlineMath>{String.raw`-\omega`}</InlineMath>. Two fictitious forces
+              appear: a <strong className="text-zinc-200">centrifugal</strong> force{" "}
+              <InlineMath>{String.raw`\omega^2\mathbf{x}`}</InlineMath> that points
+              outward from the swirl axis, and a{" "}
+              <strong className="text-zinc-200">Coriolis</strong> force{" "}
+              <InlineMath>{String.raw`2\,\mathbf{v}\times\boldsymbol{\omega}`}</InlineMath>{" "}
+              perpendicular to each ball&apos;s velocity.
+            </p>
+            <p>
+              This is the key to everything. The centrifugal force plays the role of
+              gravity in a <em>rotating drum</em>: it pins the balls into a compact
+              cluster against the wall, where the moving wall then drags them along
+              before they avalanche back through the interior. Because these forces
+              are steady in the M-frame, the swarm reaches a genuine{" "}
+              <strong className="text-zinc-200">statistical steady state</strong> —
+              which it never does in the lab frame, where it just sloshes. The
+              simulation here integrates the real equations of motion in exactly
+              this frame, which is why even a handful of balls settle against the
+              wall instead of sitting inertly at the centre.
             </p>
           </Writeup>
 
@@ -137,21 +172,17 @@ export default function PancakeProject() {
               masses the balls simply exchange their normal velocities. The
               tangential direction carries the interesting physics: surfaces in
               contact rub, so a <strong className="text-zinc-200">Coulomb
-              friction</strong> impulse acts, proportional to the normal impulse
-              <em> J</em>
-              <sub>n</sub> but capped by the impulse that would make the contact
-              stop sliding:
+              friction</strong> impulse acts, proportional to the normal impulse{" "}
+              <InlineMath>{String.raw`J_n`}</InlineMath> but capped by the impulse
+              that would make the contact stop sliding:
             </p>
-            <p className="text-zinc-300">
-              J<sub>t</sub> = −sgn(v<sub>rel</sub>) · min( μ J<sub>n</sub>, |v
-              <sub>rel</sub>| / (1/m<sub>i</sub> + 1/m<sub>j</sub> + r²/I
-              <sub>i</sub> + r²/I<sub>j</sub>) ),
-            </p>
+            <BlockMath>
+              {String.raw`J_t = -\operatorname{sgn}(v_{\mathrm{rel}})\,\min\!\left(\mu J_n,\ \frac{|v_{\mathrm{rel}}|}{\dfrac{1}{m_i}+\dfrac{1}{m_j}+\dfrac{r^2}{I_i}+\dfrac{r^2}{I_j}}\right)`}
+            </BlockMath>
             <p>
-              where v<sub>rel</sub> = v<sub>j</sub>
-              <sup>t</sup> − v<sub>i</sub>
-              <sup>t</sup> + r(ω<sub>i</sub> + ω<sub>j</sub>) is the relative
-              surface velocity at the contact. This single rule couples the
+              where{" "}
+              <InlineMath>{String.raw`v_{\mathrm{rel}} = v_j^{\,t} - v_i^{\,t} + r(\omega_i + \omega_j)`}</InlineMath>{" "}
+              is the relative surface velocity at the contact. This single rule couples the
               balls&apos; <em>translation</em> to their <em>spin</em>: every rub
               both nudges a ball sideways and changes how fast it twirls. For the
               wall the same law applies, but with the container&apos;s mass and
@@ -160,53 +191,83 @@ export default function PancakeProject() {
             </p>
           </Writeup>
 
-          <Writeup title="Why the direction flips">
+          <Writeup title="The minimal model: one ball and a slip parameter">
             <p>
-              The net rotation is a competition between two opposite tendencies.
+              Before the crowd, consider a single rigid ball of radius{" "}
+              <em>r</em> in the swirled dish of radius <em>R</em>. In the M-frame it
+              settles near the bottom of the wall and rolls along it at some spin{" "}
+              <InlineMath>{String.raw`\Omega_b`}</InlineMath>. Everything hinges on
+              how much it <strong className="text-zinc-200">slips</strong> against
+              the wall.
             </p>
             <p>
-              <strong className="text-zinc-200">Boundary drag → co-rotation.</strong>{" "}
-              When the balls are sparse, the swirling wall slides past them and
-              friction simply drags whatever balls it touches along with it. The
-              loose swarm is towed around in the direction of the swirl.
+              With <strong className="text-zinc-200">perfect slip</strong> (no
+              friction) the wall can&apos;t turn the ball at all:{" "}
+              <InlineMath>{String.raw`\Omega_b = 0`}</InlineMath>, and in the lab
+              frame the ball simply co-rotates with the swirl. With{" "}
+              <strong className="text-zinc-200">perfect no-slip</strong> (strong
+              friction) the ball rolls commensurately, like one gear inside another,
+              at <InlineMath>{String.raw`\Omega_b = (R/r)\,\omega`}</InlineMath> —
+              fast enough that, back in the lab frame, it{" "}
+              <em>counter-rotates</em>. Defining the slip parameter
+            </p>
+            <BlockMath>{String.raw`s = \frac{\Omega_M}{\omega}\cdot\frac{r}{R}`}</BlockMath>
+            <p>
+              the system rotates with the swirl when s ≈ 0 and against it when
+              s ≈ 1. The whole phenomenon is the story of how a <em>crowd</em> of
+              balls moves this single number from 0 toward 1.
+            </p>
+          </Writeup>
+
+          <Writeup title="Why the direction flips: geometric frustration">
+            <p>
+              <strong className="text-zinc-200">Few balls → slip → co-rotation.</strong>{" "}
+              In a loose cluster, each ball at the wall is free to roll and spin on
+              its own. Those spinning balls act like ball-bearings: the cluster
+              lags well behind the moving wall (s ≪ 1), so in the lab frame it is
+              gently carried along <em>with</em> the swirl.
             </p>
             <p>
               <strong className="text-zinc-200">
-                Geometric frustration → counter-rotation.
+                Many balls → frustration → counter-rotation.
               </strong>{" "}
-              When enough balls are present they jam into a rigid, close-packed
-              pancake that can no longer rearrange. Now the wall can&apos;t drag the
-              pack <em>through</em> itself; instead it <em>rolls around its rim</em>.
-              A disc with a ring rolling around its outside is forced to spin{" "}
-              <em>backwards</em> — the same reason a coin rolling inside a larger
-              ring traces a hypocycloid and turns against the orbit. So the jammed
-              swarm counter-rotates.
-            </p>
-            <p>
-              A minimal estimate makes this concrete. Treat the jammed swarm as one
-              rigid disc of radius <em>a</em>(N) rolling without slipping against
-              the wall sweeping at −ω. Matching contact speeds gives a swarm spin
-              of order Ω ≈ −ω · (R − a)/a in the M-frame: negative, i.e. opposed to
-              the swirl, and larger when the pack fills more of the dish. Finite
-              friction allows some slip, which softens the magnitude but not the
-              sign.
+              Pack the balls densely and friction between neighbours dominates. Two
+              touching balls that rub must try to spin in <em>opposite</em>
+              senses — an antiferromagnetic-like rule — and in the six-fold packing
+              of a dense cluster these demands cannot all be satisfied at once. This{" "}
+              <strong className="text-zinc-200">geometric frustration</strong> locks
+              the balls: none can roll or spin freely. Unable to act as bearings,
+              the cluster sticks to the wall (s → 1) and treadmills around its rim
+              as a rigid pancake — which, like a coin rolling inside a larger ring,
+              forces it to turn <em>backwards</em>. Both frictions are needed:
+              ball–ball friction to rigidify the pack, wall friction to make the
+              rigid pack roll.
             </p>
           </Writeup>
 
           <Writeup title="The transition and what sets it">
             <p>
-              Writing the net rotation as the sum of a co-rotating drag term that
-              dominates when balls are loose and a counter-rotating rolling term
-              that grows as the pack stiffens, Ω(N) starts positive, decreases as N
-              rises, and crosses zero at a critical number{" "}
-              <strong className="text-zinc-200">N<sub>c</sub></strong> — the point
-              where the pack becomes rigid enough to roll rather than be dragged.
-              The model predicts the sensible trends: N<sub>c</sub> rises with the
-              container-to-ball size ratio (more room before jamming) and with the
-              swirl speed (stronger drag), and falls with stronger friction (the
-              pack stiffens sooner). The interactive sweep reproduces exactly this
-              curve — co-rotation at small N, a sign change near the jamming
-              density, and counter-rotation beyond it.
+              So <InlineMath>{String.raw`\Omega(N)`}</InlineMath> starts positive,
+              falls as the cluster stiffens, and crosses zero at a critical number{" "}
+              <strong className="text-zinc-200">
+                <InlineMath>{String.raw`N_c`}</InlineMath>
+              </strong>{" "}
+              where the slip parameter passes through the value that exactly cancels
+              the swirl. Beyond <InlineMath>{String.raw`N_c`}</InlineMath> the swarm
+              counter-rotates; at the very
+              highest densities the magnitude even eases back slightly, just as the
+              experiments report.
+            </p>
+            <p>
+              The picture predicts the right knobs, and the interactive sweep bears
+              them out: stronger friction reaches no-slip sooner, so{" "}
+              <InlineMath>{String.raw`N_c`}</InlineMath> <em>falls</em> (roughened
+              beads in the experiment flip at N≈28 versus ≈36 for smooth ones); a
+              larger dish-to-ball ratio gives more room before jamming, so{" "}
+              <InlineMath>{String.raw`N_c`}</InlineMath> <em>rises</em>; and removing
+              either
+              friction prevents no-slip altogether, so the transition disappears and
+              the swarm co-rotates at every N.
             </p>
           </Writeup>
         </article>

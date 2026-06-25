@@ -92,6 +92,32 @@ export default function StarfieldPlasma() {
       return tempSprites[Math.max(0, Math.min(tempSprites.length - 1, idx))];
     };
 
+    // Soft glowing star sprite: a hot near-white core fading to a faint blue
+    // halo, so bright stars actually "shine" instead of reading as flat dots.
+    const makeStarSprite = () => {
+      const size = 32;
+      const c = document.createElement("canvas");
+      c.width = size;
+      c.height = size;
+      const g = c.getContext("2d")!;
+      const grd = g.createRadialGradient(
+        size / 2,
+        size / 2,
+        0,
+        size / 2,
+        size / 2,
+        size / 2
+      );
+      grd.addColorStop(0, "rgba(255, 255, 255, 1)");
+      grd.addColorStop(0.18, "rgba(223, 231, 255, 0.85)");
+      grd.addColorStop(0.5, "rgba(180, 200, 255, 0.28)");
+      grd.addColorStop(1, "rgba(180, 200, 255, 0)");
+      g.fillStyle = grd;
+      g.fillRect(0, 0, size, size);
+      return c;
+    };
+    const starSprite = makeStarSprite();
+
     const particles: Particle[] = [];
     const pointer = { x: -9999, y: -9999, lastMove: -9999 };
 
@@ -102,10 +128,10 @@ export default function StarfieldPlasma() {
         stars.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          size: Math.random() * 1.2 + 0.3,
-          baseAlpha: Math.random() * 0.45 + 0.12, // dimmer
+          size: Math.random() * 1.4 + 0.5,
+          baseAlpha: Math.random() * 0.5 + 0.4, // brighter
           twPhase: Math.random() * Math.PI * 2,
-          twSpeed: Math.random() * 0.5 + 0.15, // slower twinkle
+          twSpeed: Math.random() * 1.6 + 0.6, // livelier twinkle
           depth: Math.random(),
         });
       }
@@ -127,16 +153,28 @@ export default function StarfieldPlasma() {
     // Reduced-motion: one static starfield, no animation.
     if (reduce) {
       const renderStatic = () => {
+        ctx.globalCompositeOperation = "source-over";
         ctx.fillStyle = "#06060c";
         ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = "#dfe7ff";
+        ctx.globalCompositeOperation = "lighter";
         for (const st of stars) {
-          ctx.globalAlpha = st.baseAlpha;
+          const halo = st.size * 7;
+          ctx.globalAlpha = st.baseAlpha * 0.7;
+          ctx.drawImage(
+            starSprite,
+            st.x - halo / 2,
+            st.y - halo / 2,
+            halo,
+            halo
+          );
+          ctx.globalAlpha = Math.min(1, st.baseAlpha * 1.3);
+          ctx.fillStyle = "#f2f5ff";
           ctx.beginPath();
           ctx.arc(st.x, st.y, st.size, 0, Math.PI * 2);
           ctx.fill();
         }
         ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = "source-over";
       };
       renderStatic();
       const onResize = () => {
@@ -207,17 +245,28 @@ export default function StarfieldPlasma() {
       const px = pointer.x > -9999 ? pointer.x - width / 2 : 0;
       const py = pointer.y > -9999 ? pointer.y - height / 2 : 0;
 
-      // Stars — slow, subtle twinkle.
-      ctx.fillStyle = "#dfe7ff";
+      // Stars — glowing halo + bright core with a lively twinkle. Additive
+      // blending lets the halos bloom so they genuinely shine.
+      ctx.globalCompositeOperation = "lighter";
       for (const st of stars) {
-        const tw = 0.6 + 0.4 * Math.sin(t * 0.02 * st.twSpeed + st.twPhase);
-        ctx.globalAlpha = st.baseAlpha * tw;
+        const tw = 0.45 + 0.55 * Math.sin(t * 0.035 * st.twSpeed + st.twPhase);
+        const a = st.baseAlpha * tw;
         const sx = st.x - px * st.depth * 0.015;
         const sy = st.y - py * st.depth * 0.015;
+
+        // Soft glowing halo.
+        const halo = st.size * 7;
+        ctx.globalAlpha = a * 0.7;
+        ctx.drawImage(starSprite, sx - halo / 2, sy - halo / 2, halo, halo);
+
+        // Crisp bright core.
+        ctx.globalAlpha = Math.min(1, a * 1.3);
+        ctx.fillStyle = "#f2f5ff";
         ctx.beginPath();
         ctx.arc(sx, sy, st.size, 0, Math.PI * 2);
         ctx.fill();
       }
+      ctx.globalCompositeOperation = "source-over";
 
       // Plasma — additive blending; overlaps build the white-hot core.
       emit();

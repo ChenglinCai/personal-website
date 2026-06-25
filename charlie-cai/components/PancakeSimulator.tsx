@@ -1,19 +1,39 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { InlineMath } from "@/components/Math";
 
-// Interactive "pancake rotation" (IYPT Q15 / swirled granular media).
-// Discs in a circular container whose centre is swirled (translated around a
-// small circle without spinning). No floor friction; interaction is purely
-// collisional: elastic in the normal direction, Coulomb-friction tangential
-// impulse with a stick clamp (Wang–Mason). The swarm acquires a net rotation
-// about its centre of mass — co-rotating with the swirl when loose, flipping to
-// counter-rotation once it jams. Every number shown is computed live from this
-// engine; nothing is fit to external data.
+// Interactive "pancake rotation" (IYPT Q15 / swirled granular media), rebuilt to
+// follow Lee et al., Phys. Rev. E 100, 012903 (2019). N discs sit in a circular
+// dish whose centre is swirled around a small circle without spinning. The floor
+// is frictionless; the only forces are collisions — elastic in the normal
+// direction, Coulomb-friction tangential impulse with a stick clamp (Wang–Mason).
+//
+// Crucially, the dynamics are integrated in the *M-frame* (the frame co-rotating
+// with the swirl, used in the paper). There the dish is stationary, its wall
+// rotates at −ω about its own centre, and every disc feels a steady centrifugal
+// force (pushing it to the wall, like gravity in a rotating drum) plus a Coriolis
+// force. This is what lets even a small cluster settle against the wall and reach
+// a statistical steady state — reproducing the experiment for all N.
+//
+// The swarm's lab-frame rotation is Ω_lab = Ω_M + ω. It is positive (co-rotating)
+// for a loose cluster and crosses to negative (counter-rotating) once the pack
+// jams and rolls no-slip on the wall. Every number shown is computed live.
 
-const DT = 0.004;
-const VCAP = 60; // safety clamp so frictionless runs can't blow up
+const DT = 0.003;
+const VCAP = 80; // generous safety clamp; should not bind in normal operation
 const RAD2DEG = 180 / Math.PI;
+const TRIALS = 10; // independent trials averaged per plotted data point
+const MAXN_CAP = 90; // upper bound on N for the O(N²) collision loop
+
+// I = INERTIA_COEF · m · r².  Lee et al. use I = 10 for r = m = 1; this large
+// effective rotational inertia models the geometric frustration that stops
+// densely packed discs from spinning freely.
+const INERTIA_COEF = 10;
+// Mild restitution (paper uses elastic collisions with an exact event-driven
+// integrator; a fixed-step integrator needs a little dissipation for a steady
+// state, and real grains are inelastic anyway).
+const E_REST = 0.5;
 
 interface Params {
   N: number;
@@ -39,7 +59,7 @@ const VLABEL: Record<Var, string> = {
   muBB: "ball friction μ",
 };
 
-const Iof = (p: Params) => 0.5 * p.m * p.rball * p.rball;
+const Iof = (p: Params) => INERTIA_COEF * p.m * p.rball * p.rball;
 
 interface SimState {
   x: Float64Array;
@@ -49,13 +69,10 @@ interface SimState {
   w: Float64Array;
   phi: Float64Array;
   n: number;
-  cx: number;
-  cy: number;
-  uCx: number;
-  uCy: number;
   t: number;
 }
 
+// Hex pack inside the dish (centred on the dish centre C = (A,0)), closest first.
 function packPts(p: Params): [number, number, number][] {
   const sx = 2 * p.rball * 1.02;
   const sy = p.rball * 1.02 * Math.sqrt(3);
@@ -85,10 +102,6 @@ function makeState(p: Params): SimState {
     w: new Float64Array(n),
     phi: new Float64Array(n),
     n,
-    cx: p.A,
-    cy: 0,
-    uCx: 0,
-    uCy: 0,
     t: 0,
   };
   for (let i = 0; i < n; i++) {
@@ -98,24 +111,31 @@ function makeState(p: Params): SimState {
   return s;
 }
 
+// One M-frame step. Dish centre C = (A,0) is fixed; wall rotates at −ω about C.
 function step(s: SimState, p: Params) {
   const I = Iof(p);
   const om = (p.swirlDeg * Math.PI) / 180;
   const { m, A, rball, Rcont, muBB, muBC } = p;
+  const e = E_REST;
+  const Cx = A;
+  const Cy = 0;
   s.t += DT;
-  const th = om * s.t;
-  s.cx = A * Math.cos(th);
-  s.cy = A * Math.sin(th);
-  s.uCx = -A * om * Math.sin(th);
-  s.uCy = A * om * Math.cos(th);
 
   const { x, y, vx, vy, w, phi, n } = s;
+
+  // Fictitious forces of the rotating frame: centrifugal ω²·r (from S = origin)
+  // and Coriolis 2 v×ω. Semi-implicit Euler.
   for (let i = 0; i < n; i++) {
+    const ax = om * om * x[i] + 2 * om * vy[i];
+    const ay = om * om * y[i] - 2 * om * vx[i];
+    vx[i] += ax * DT;
+    vy[i] += ay * DT;
     x[i] += vx[i] * DT;
     y[i] += vy[i] * DT;
     phi[i] += w[i] * DT;
   }
 
+  // Disc–disc collisions.
   const d0 = 2 * rball;
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
@@ -133,7 +153,10 @@ function step(s: SimState, p: Params) {
       const vjn = vx[j] * nx + vy[j] * ny;
       const vjt = vx[j] * tx + vy[j] * ty;
       if (vin - vjn > 0) {
-        const Jn = m * (vin - vjn);
+        const Jn = 0.5 * m * (1 + e) * (vin - vjn);
+        const dvn = Jn / m;
+        const nvin = vin - dvn;
+        const nvjn = vjn + dvn;
         const vrel = vjt - vit + rball * (w[i] + w[j]);
         const s0 = Math.sign(vrel);
         const Jf =
@@ -143,10 +166,10 @@ function step(s: SimState, p: Params) {
         const nvjt = vjt + Jf / m;
         w[i] += (rball * Jf) / I;
         w[j] += (rball * Jf) / I;
-        vx[i] = vjn * nx + nvit * tx;
-        vy[i] = vjn * ny + nvit * ty;
-        vx[j] = vin * nx + nvjt * tx;
-        vy[j] = vin * ny + nvjt * ty;
+        vx[i] = nvin * nx + nvit * tx;
+        vy[i] = nvin * ny + nvit * ty;
+        vx[j] = nvjn * nx + nvjt * tx;
+        vy[j] = nvjn * ny + nvjt * ty;
       }
       const ov = d0 - d;
       x[i] -= 0.5 * ov * nx;
@@ -156,35 +179,38 @@ function step(s: SimState, p: Params) {
     }
   }
 
+  // Disc–wall collisions. Wall point at P has velocity −ω×(P−C) = (ω·dy, −ω·dx).
   const lim = Rcont - rball;
   for (let i = 0; i < n; i++) {
-    const dx = x[i] - s.cx;
-    const dy = y[i] - s.cy;
+    const dx = x[i] - Cx;
+    const dy = y[i] - Cy;
     const d2 = dx * dx + dy * dy;
     if (d2 <= lim * lim) continue;
     const d = Math.sqrt(d2);
-    const nx = -dx / d;
+    const nx = -dx / d; // inward normal
     const ny = -dy / d;
     const tx = ny;
     const ty = -nx;
+    const uWx = om * dy;
+    const uWy = -om * dx;
     const vin = vx[i] * nx + vy[i] * ny;
     const vit = vx[i] * tx + vy[i] * ty;
-    const uCn = s.uCx * nx + s.uCy * ny;
-    const uCt = s.uCx * tx + s.uCy * ty;
-    if (vin - uCn < 0) {
-      const Jn = 2 * m * (uCn - vin);
-      const vrel = vit - uCt + rball * w[i];
+    const uWn = uWx * nx + uWy * ny;
+    const uWt = uWx * tx + uWy * ty;
+    if (vin - uWn < 0) {
+      const nvin = (1 + e) * uWn - e * vin;
+      const Jn = m * (nvin - vin);
+      const vrel = vit - uWt + rball * w[i];
       const s0 = Math.sign(vrel);
       const Jf =
         -s0 * Math.min(muBC * Math.abs(Jn), Math.abs(vrel) / (1 / m + (rball * rball) / I));
-      const nvin = 2 * uCn - vin;
       const nvit = vit + Jf / m;
       w[i] += (rball * Jf) / I;
       vx[i] = nvin * nx + nvit * tx;
       vy[i] = nvin * ny + nvit * ty;
     }
-    x[i] = s.cx + (dx / d) * lim;
-    y[i] = s.cy + (dy / d) * lim;
+    x[i] = Cx + (dx / d) * lim;
+    y[i] = Cy + (dy / d) * lim;
   }
 
   // safety clamp
@@ -199,7 +225,9 @@ function step(s: SimState, p: Params) {
   }
 }
 
-function omegaCOM(s: SimState): number {
+// Angular velocity of the cluster about its own centre of mass, in the M-frame
+// (rad/s).
+function omegaCOM_M(s: SimState): number {
   const { x, y, vx, vy, n } = s;
   if (n === 0) return 0;
   let xC = 0,
@@ -226,19 +254,24 @@ function omegaCOM(s: SimState): number {
   return sum / n;
 }
 
+// Lab-frame swarm rotation in deg/s: Ω_lab = Ω_M + ω.
+function labOmegaDeg(s: SimState, p: Params): number {
+  return omegaCOM_M(s) * RAD2DEG + p.swirlDeg;
+}
+
 function linspace(a: number, b: number, n: number): number[] {
   return Array.from({ length: n }, (_, i) => a + ((b - a) * i) / (n - 1));
 }
 function sweepValues(V: Var, base: Params): number[] {
   switch (V) {
     case "N": {
-      const hi = Math.min(64, packCount(base));
+      const hi = Math.min(MAXN_CAP, packCount(base));
       const out: number[] = [];
-      for (let v = 6; v <= hi; v += Math.max(2, Math.round((hi - 6) / 13))) out.push(v);
+      for (let v = 5; v <= hi; v += Math.max(2, Math.round((hi - 5) / 16))) out.push(v);
       return out;
     }
     case "swirlDeg":
-      return linspace(20, 110, 10);
+      return linspace(30, 120, 9);
     case "m":
       return linspace(0.3, 2.5, 9);
     case "A":
@@ -254,7 +287,7 @@ function sweepValues(V: Var, base: Params): number[] {
   }
 }
 
-// Interpolate the N where Ω crosses zero (co → counter).
+// Interpolate the N where Ω_lab crosses zero (co → counter).
 function crossingN(data: [number, number][]): number {
   for (let i = 0; i < data.length - 1; i++) {
     const [n0, o0] = data[i];
@@ -282,6 +315,8 @@ interface Sweep {
   measSteps: number;
   acc: number;
   cnt: number;
+  trial: number; // index of the current trial within this data point
+  trialAcc: number; // sum of per-trial Ω means, averaged once TRIALS are done
   inner: { Ns: number[]; ni: number; data: [number, number][] } | null;
 }
 
@@ -290,8 +325,8 @@ export default function PancakeSimulator() {
   const graphRef = useRef<HTMLCanvasElement>(null);
 
   const [P, setP] = useState<Params>({
-    N: 18,
-    swirlDeg: 30,
+    N: 10,
+    swirlDeg: 70,
     m: 1,
     A: 1.9,
     rball: 1.0,
@@ -299,7 +334,7 @@ export default function PancakeSimulator() {
     muBB: 1.0,
     muBC: 1.0,
   });
-  const [frame, setFrame] = useState<"container" | "lab">("container");
+  const [frame, setFrame] = useState<"mframe" | "dish" | "lab">("lab");
   const [speed, setSpeed] = useState(3);
   const [running, setRunning] = useState(true);
   const [omega, setOmega] = useState(0);
@@ -315,11 +350,23 @@ export default function PancakeSimulator() {
   const omEMA = useRef(0);
   const resetFlag = useRef(true);
   const sweepRef = useRef<Sweep | null>(null);
+  const histRef = useRef<{ t: number; o: number }[]>([]);
 
   const setParam = (k: Var, v: number, reinit: boolean) => {
-    setP((prev) => ({ ...prev, [k]: v }));
+    setP((prev) => {
+      const next = { ...prev, [k]: v };
+      // ball radius, dish radius and amplitude all change how many discs fit;
+      // clamp N down to what can actually be packed.
+      if (k === "rball" || k === "Rcont" || k === "A") {
+        const maxN = Math.min(MAXN_CAP, packCount(next));
+        if (next.N > maxN) next.N = Math.max(3, maxN);
+      }
+      return next;
+    });
     if (reinit) resetFlag.current = true;
   };
+
+  const maxN = Math.min(MAXN_CAP, packCount(P));
 
   const beginRun = (sw: Sweep) => {
     sw.st = makeState(sw.p);
@@ -327,6 +374,12 @@ export default function PancakeSimulator() {
     sw.steps = 0;
     sw.acc = 0;
     sw.cnt = 0;
+  };
+  // Start a fresh data point: reset the trial accumulator, then begin trial 0.
+  const beginUnit = (sw: Sweep) => {
+    sw.trial = 0;
+    sw.trialAcc = 0;
+    beginRun(sw);
   };
   const startSweep = () => {
     const base = ctrl.current.P;
@@ -344,29 +397,30 @@ export default function PancakeSimulator() {
       st: makeState(base),
       phase: "eq",
       steps: 0,
-      eqSteps: Math.round((dep === "omega" ? 20 : 12) / DT),
-      measSteps: Math.round((dep === "omega" ? 12 : 7) / DT),
+      eqSteps: Math.round((dep === "omega" ? 16 : 12) / DT),
+      measSteps: Math.round((dep === "omega" ? 18 : 12) / DT),
       acc: 0,
       cnt: 0,
+      trial: 0,
+      trialAcc: 0,
       inner: null,
     };
     const setupValue = () => {
       const val = sw.values[sw.vi];
       if (sw.dep === "omega") {
         sw.p = { ...sw.base, [sw.V]: val };
-        beginRun(sw);
+        beginUnit(sw);
       } else {
         const pv = { ...sw.base, [sw.V]: val };
-        const hi = Math.min(64, packCount(pv));
+        const hi = Math.min(MAXN_CAP, packCount(pv));
         const Ns: number[] = [];
-        for (let v = 6; v <= hi; v += Math.max(3, Math.round((hi - 6) / 8))) Ns.push(v);
+        for (let v = 5; v <= hi; v += Math.max(3, Math.round((hi - 5) / 9))) Ns.push(v);
         sw.inner = { Ns, ni: 0, data: [] };
         sw.p = { ...pv, N: Ns[0] };
-        beginRun(sw);
+        beginUnit(sw);
       }
     };
     sweepRef.current = sw;
-    // attach setup to ref via closure: store on object
     (sw as Sweep & { setupValue: () => void }).setupValue = setupValue;
     setupValue();
     setSweeping(true);
@@ -412,26 +466,55 @@ export default function PancakeSimulator() {
     simRef.current = makeState(ctrl.current.P);
     resetFlag.current = false;
 
-    const drawSim = (s: SimState, p: Params, fr: "container" | "lab") => {
+    const drawSim = (s: SimState, p: Params, fr: "mframe" | "dish" | "lab") => {
       cx.clearRect(0, 0, W, W);
       cx.fillStyle = "#0a0a12";
       cx.fillRect(0, 0, W, W);
-      const span = fr === "container" ? p.Rcont : p.A + p.Rcont;
+
+      const om = (p.swirlDeg * Math.PI) / 180;
+      const th = om * s.t;
+      const ct = Math.cos(th);
+      const st = Math.sin(th);
+      // Map M-frame coordinates to the chosen view frame:
+      //   mframe — identity (dish centre fixed, axes co-rotate with the swirl)
+      //   lab    — rotate by +θ about the swirl axis S (what you actually see)
+      //   dish   — translate to the dish centre, then rotate by +θ, giving a
+      //            frame whose origin tracks the dish centre but whose axes stay
+      //            fixed to the lab (the non-spinning dish frame)
+      const toView = (wx: number, wy: number): [number, number] => {
+        if (fr === "lab") return [wx * ct - wy * st, wx * st + wy * ct];
+        if (fr === "dish") {
+          const rx = wx - p.A;
+          return [rx * ct - wy * st, rx * st + wy * ct];
+        }
+        return [wx, wy];
+      };
+
+      // dish centre C = (A,0) in M-frame, mapped into the view
+      const [Cvx, Cvy] = toView(p.A, 0);
+      const span = fr === "lab" ? p.A + p.Rcont : p.Rcont * 1.06;
       const scale = (W * 0.46) / span;
-      const ox = fr === "container" ? s.cx : 0;
-      const oy = fr === "container" ? s.cy : 0;
+      // centre the view: M-frame on dish centre C; lab & dish frames on origin
+      const ox = fr === "mframe" ? p.A : 0;
+      const oy = 0;
       const SX = (wx: number) => W / 2 + (wx - ox) * scale;
       const SY = (wy: number) => W / 2 - (wy - oy) * scale;
 
+      // dish
       cx.beginPath();
-      cx.arc(SX(s.cx), SY(s.cy), p.Rcont * scale, 0, Math.PI * 2);
+      cx.arc(SX(Cvx), SY(Cvy), p.Rcont * scale, 0, Math.PI * 2);
       cx.strokeStyle = "rgba(255,255,255,0.35)";
       cx.lineWidth = 2;
       cx.stroke();
 
-      if (fr === "lab") {
+      // swirl-orbit circle (radius A). In the lab view it is the path of the
+      // dish centre about S; in the dish view it is the path of S about the
+      // (now fixed) dish centre. Both are circles of radius A.
+      if (fr === "lab" || fr === "dish") {
+        const ccx = fr === "lab" ? SX(0) : SX(Cvx);
+        const ccy = fr === "lab" ? SY(0) : SY(Cvy);
         cx.beginPath();
-        cx.arc(SX(0), SY(0), p.A * scale, 0, Math.PI * 2);
+        cx.arc(ccx, ccy, p.A * scale, 0, Math.PI * 2);
         cx.strokeStyle = "rgba(167,139,250,0.25)";
         cx.lineWidth = 1;
         cx.stroke();
@@ -439,20 +522,24 @@ export default function PancakeSimulator() {
 
       const rball = p.rball * scale;
       for (let i = 0; i < s.n; i++) {
-        const px = SX(s.x[i]);
-        const py = SY(s.y[i]);
+        const [px0, py0] = toView(s.x[i], s.y[i]);
+        const px = SX(px0);
+        const py = SY(py0);
         cx.beginPath();
         cx.arc(px, py, rball, 0, Math.PI * 2);
         cx.fillStyle = "#a78bfa";
         cx.fill();
+        // spin tick (rotate the body angle into the view frame where axes turn)
+        const ang = fr === "mframe" ? s.phi[i] : s.phi[i] + th;
         cx.beginPath();
         cx.moveTo(px, py);
-        cx.lineTo(px + Math.cos(s.phi[i]) * rball * 0.85, py - Math.sin(s.phi[i]) * rball * 0.85);
+        cx.lineTo(px + Math.cos(ang) * rball * 0.85, py - Math.sin(ang) * rball * 0.85);
         cx.strokeStyle = "rgba(10,10,18,0.8)";
         cx.lineWidth = Math.max(1, rball * 0.18);
         cx.stroke();
       }
 
+      // centre of mass (white dot)
       if (s.n > 0) {
         let mx = 0;
         let my = 0;
@@ -462,8 +549,9 @@ export default function PancakeSimulator() {
         }
         mx /= s.n;
         my /= s.n;
+        const [mvx, mvy] = toView(mx, my);
         cx.beginPath();
-        cx.arc(SX(mx), SY(my), 5, 0, Math.PI * 2);
+        cx.arc(SX(mvx), SY(mvy), 5, 0, Math.PI * 2);
         cx.fillStyle = "#ffffff";
         cx.fill();
         cx.lineWidth = 1.5;
@@ -471,17 +559,45 @@ export default function PancakeSimulator() {
         cx.stroke();
       }
 
-      const csx = SX(s.cx);
-      const csy = SY(s.cy);
-      const sp = Math.hypot(s.uCx, s.uCy) || 1;
-      const ax = (s.uCx / sp) * 26;
-      const ay = -(s.uCy / sp) * 26;
+      // centre of the dish (red dot) — always shown. The dish only translates
+      // (it never spins in the lab frame), so this dot traces the swirl circle
+      // in the lab view and stays put in the M-frame and dish-frame views.
       cx.beginPath();
-      cx.moveTo(csx, csy);
-      cx.lineTo(csx + ax, csy + ay);
-      cx.strokeStyle = "rgba(251,191,36,0.9)";
-      cx.lineWidth = 2;
+      cx.arc(SX(Cvx), SY(Cvy), 4, 0, Math.PI * 2);
+      cx.fillStyle = "#ef4444";
+      cx.fill();
+      cx.lineWidth = 1.5;
+      cx.strokeStyle = "rgba(10,10,18,0.9)";
       cx.stroke();
+
+      // A reference mark "painted" on the dish rim, with a faint radial spoke to
+      // the dish centre. Since the dish only translates (it never spins in the
+      // lab frame), this mark keeps a fixed orientation in the lab and dish
+      // frames, and sweeps around the rim only in the rotating M-frame. As a
+      // dish-fixed point it sits at M-frame position (A + R·sinθ, R·cosθ).
+      const markX = p.A + p.Rcont * st;
+      const markY = p.Rcont * ct;
+      const [mkx, mky] = toView(markX, markY);
+      cx.beginPath();
+      cx.moveTo(SX(Cvx), SY(Cvy));
+      cx.lineTo(SX(mkx), SY(mky));
+      cx.strokeStyle = "rgba(251,191,36,0.45)";
+      cx.lineWidth = 1.5;
+      cx.stroke();
+      cx.beginPath();
+      cx.arc(SX(mkx), SY(mky), 4, 0, Math.PI * 2);
+      cx.fillStyle = "rgba(251,191,36,0.95)";
+      cx.fill();
+
+      // In the lab and dish views, mark the swirl axis S (the point the dish
+      // translates around) as a violet dot.
+      if (fr === "lab" || fr === "dish") {
+        const [sx0, sy0] = toView(0, 0);
+        cx.beginPath();
+        cx.arc(SX(sx0), SY(sy0), 3, 0, Math.PI * 2);
+        cx.fillStyle = "rgba(167,139,250,0.8)";
+        cx.fill();
+      }
     };
 
     const drawGraph = (g: CanvasRenderingContext2D, w: number, h: number, sw: Sweep | null) => {
@@ -522,7 +638,6 @@ export default function PancakeSimulator() {
       const X = (v: number) => padL + ((v - xmin) / (xmax - xmin || 1)) * pw;
       const Y = (v: number) => padT + ph - ((v - ylo) / (yhi - ylo || 1)) * ph;
 
-      // zero line for omega
       if (isOmega) {
         const y0 = Y(0);
         g.strokeStyle = "rgba(255,255,255,0.25)";
@@ -535,7 +650,6 @@ export default function PancakeSimulator() {
         g.fillStyle = "rgba(251,146,60,0.8)";
         g.fillText("counter", padL + 3, Y(-yhi * 0.7));
       }
-      // axes
       g.strokeStyle = "rgba(255,255,255,0.18)";
       g.beginPath();
       g.moveTo(padL, padT);
@@ -548,7 +662,7 @@ export default function PancakeSimulator() {
       g.fillText(yhi.toFixed(0), 8, Y(yhi) + 3);
       g.fillText(ylo.toFixed(0), 18, Y(ylo) + 3);
       g.fillStyle = "rgba(255,255,255,0.55)";
-      const yl = isOmega ? "Ω (°/s)" : "N critical";
+      const yl = isOmega ? "Ω lab (°/s)" : "N critical";
       g.fillText(`${yl} vs ${VLABEL[sw.V]}`, padL, 11);
 
       if (pts.length > 0) {
@@ -567,6 +681,78 @@ export default function PancakeSimulator() {
       }
     };
 
+    const drawTimeSeries = (
+      g: CanvasRenderingContext2D,
+      w: number,
+      h: number,
+      hist: { t: number; o: number }[]
+    ) => {
+      g.clearRect(0, 0, w, h);
+      g.fillStyle = "#0a0a12";
+      g.fillRect(0, 0, w, h);
+      const padL = 46;
+      const padR = 12;
+      const padT = 16;
+      const padB = 24;
+      const pw = Math.max(10, w - padL - padR);
+      const ph = Math.max(10, h - padT - padB);
+      g.font = "10px ui-sans-serif, system-ui";
+
+      if (hist.length < 2) {
+        g.fillStyle = "rgba(255,255,255,0.3)";
+        g.fillText("Net rotation Ω will trace here as the swarm spins up…", padL + 6, padT + ph / 2);
+        return;
+      }
+      const t0 = hist[0].t;
+      const t1 = hist[hist.length - 1].t;
+      let yhi = 0;
+      for (const s of hist) yhi = Math.max(yhi, Math.abs(s.o));
+      yhi = Math.max(yhi * 1.15, 10);
+      const ylo = -yhi;
+      const X = (t: number) => padL + ((t - t0) / (t1 - t0 || 1)) * pw;
+      const Y = (o: number) => padT + ph - ((o - ylo) / (yhi - ylo || 1)) * ph;
+
+      // zero line + co/counter labels
+      const y0 = Y(0);
+      g.strokeStyle = "rgba(255,255,255,0.25)";
+      g.beginPath();
+      g.moveTo(padL, y0);
+      g.lineTo(padL + pw, y0);
+      g.stroke();
+      g.fillStyle = "rgba(52,211,153,0.7)";
+      g.fillText("co", padL + 3, Y(yhi * 0.7));
+      g.fillStyle = "rgba(251,146,60,0.8)";
+      g.fillText("counter", padL + 3, Y(-yhi * 0.7));
+
+      // axes
+      g.strokeStyle = "rgba(255,255,255,0.18)";
+      g.beginPath();
+      g.moveTo(padL, padT);
+      g.lineTo(padL, padT + ph);
+      g.lineTo(padL + pw, padT + ph);
+      g.stroke();
+      g.fillStyle = "rgba(255,255,255,0.4)";
+      g.fillText(yhi.toFixed(0), 8, Y(yhi) + 3);
+      g.fillText(ylo.toFixed(0), 12, Y(ylo) + 3);
+      g.fillText("0", 28, y0 + 3);
+      g.fillStyle = "rgba(255,255,255,0.55)";
+      g.fillText("Ω lab (°/s) vs time →", padL, 11);
+
+      // trace
+      g.strokeStyle = "#a78bfa";
+      g.lineWidth = 1.5;
+      g.beginPath();
+      hist.forEach((s, i) => (i ? g.lineTo(X(s.t), Y(s.o)) : g.moveTo(X(s.t), Y(s.o))));
+      g.stroke();
+
+      // current value marker
+      const last = hist[hist.length - 1];
+      g.fillStyle = last.o >= 0 ? "#34d399" : "#fb923c";
+      g.beginPath();
+      g.arc(X(last.t), Y(last.o), 2.8, 0, Math.PI * 2);
+      g.fill();
+    };
+
     let raf = 0;
     let frames = 0;
     const frame = () => {
@@ -574,7 +760,7 @@ export default function PancakeSimulator() {
       const sw = sweepRef.current;
 
       if (sw && sw.active) {
-        const chunk = 480;
+        const chunk = 1800;
         for (let k = 0; k < chunk; k++) {
           step(sw.st, sw.p);
           sw.steps++;
@@ -586,10 +772,17 @@ export default function PancakeSimulator() {
               sw.cnt = 0;
             }
           } else {
-            sw.acc += omegaCOM(sw.st);
+            sw.acc += labOmegaDeg(sw.st, sw.p);
             sw.cnt++;
             if (sw.steps >= sw.measSteps) {
-              const om = (sw.acc / sw.cnt) * RAD2DEG;
+              // one trial finished — bank it and run more trials before recording
+              sw.trialAcc += sw.acc / sw.cnt;
+              sw.trial++;
+              if (sw.trial < TRIALS) {
+                beginRun(sw); // fresh random configuration, same parameters
+                break;
+              }
+              const om = sw.trialAcc / TRIALS; // average over TRIALS trials
               const setup = (sw as Sweep & { setupValue: () => void }).setupValue;
               if (sw.dep === "omega") {
                 sw.results.push([sw.values[sw.vi], om]);
@@ -604,7 +797,7 @@ export default function PancakeSimulator() {
                 inner.ni++;
                 if (inner.ni < inner.Ns.length) {
                   sw.p = { ...sw.p, N: inner.Ns[inner.ni] };
-                  beginRun(sw);
+                  beginUnit(sw);
                 } else {
                   sw.results.push([sw.values[sw.vi], crossingN(inner.data)]);
                   sw.vi++;
@@ -622,8 +815,12 @@ export default function PancakeSimulator() {
         if (graph && gctx) drawGraph(gctx, gW, gH, sw);
         frames++;
         if (frames % 6 === 0) {
-          const inFrac = sw.inner ? sw.inner.ni / Math.max(1, sw.inner.Ns.length) : 0;
-          setProgress(Math.min(100, ((sw.vi + inFrac) / sw.values.length) * 100));
+          const trialFrac = sw.trial / TRIALS;
+          const frac = sw.inner
+            ? (sw.vi + (sw.inner.ni + trialFrac) / Math.max(1, sw.inner.Ns.length)) /
+              sw.values.length
+            : (sw.vi + trialFrac) / sw.values.length;
+          setProgress(Math.min(100, frac * 100));
         }
         raf = requestAnimationFrame(frame);
         return;
@@ -633,18 +830,21 @@ export default function PancakeSimulator() {
       if (resetFlag.current) {
         simRef.current = makeState(c.P);
         omEMA.current = 0;
+        histRef.current = [];
         resetFlag.current = false;
       }
       const s = simRef.current!;
       if (c.running) {
         const steps = Math.max(1, Math.round(2 * c.speed));
         for (let k = 0; k < steps; k++) step(s, c.P);
-        omEMA.current = omEMA.current * 0.97 + omegaCOM(s) * 0.03;
+        omEMA.current = omEMA.current * 0.97 + labOmegaDeg(s, c.P) * 0.03;
+        histRef.current.push({ t: s.t, o: omEMA.current });
+        if (histRef.current.length > 700) histRef.current.shift();
       }
       drawSim(s, c.P, c.frame);
-      if (graph && gctx) drawGraph(gctx, gW, gH, sweepRef.current);
+      if (graph && gctx) drawTimeSeries(gctx, gW, gH, histRef.current);
       frames++;
-      if (frames % 8 === 0) setOmega(omEMA.current * RAD2DEG);
+      if (frames % 8 === 0) setOmega(omEMA.current);
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
@@ -667,7 +867,7 @@ export default function PancakeSimulator() {
         <canvas ref={canvasRef} className="w-full rounded-xl border border-zinc-800 bg-[#0a0a12]" />
         <div className="mt-3 grid grid-cols-2 gap-3 text-center text-sm">
           <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 px-2 py-2">
-            <div className="text-[10px] uppercase tracking-wider text-zinc-500">Swarm rotation Ω</div>
+            <div className="text-[10px] uppercase tracking-wider text-zinc-500">Swarm rotation Ω (lab)</div>
             <div className={`font-display text-base font-semibold ${co ? "text-emerald-400" : "text-orange-400"}`}>
               {omega.toFixed(1)} °/s · {co ? "co" : "counter"}
             </div>
@@ -678,7 +878,7 @@ export default function PancakeSimulator() {
             <div className="font-display text-base font-semibold text-zinc-100">
               {simRef.current?.n ?? P.N}
             </div>
-            <div className="text-[10px] text-zinc-600">white dot = centre of mass</div>
+            <div className="text-[10px] text-zinc-600">white = centre of mass · red = dish centre</div>
           </div>
         </div>
         <canvas ref={graphRef} className="mt-4 w-full rounded-xl border border-zinc-800 bg-[#0a0a12]" />
@@ -723,16 +923,39 @@ export default function PancakeSimulator() {
             </button>
           </div>
           <p className="mt-2 text-[11px] text-zinc-600">
-            Holds the other variables at their slider values and computes the curve live.
+            Holds the other variables at their slider values and computes the curve
+            live, averaging {TRIALS} independent trials per data point.
             {dep === "ncrit" ? " (N critical re-scans N at each point — slower.)" : ""}
           </p>
+          <dl className="mt-3 space-y-1.5 border-t border-zinc-800 pt-3 text-[11px] leading-relaxed text-zinc-500">
+            <div>
+              <span className="font-medium text-zinc-300">
+                <InlineMath>{String.raw`\Omega`}</InlineMath> (net rotation)
+              </span>{" "}
+              — the swarm&apos;s mean angular velocity about its own centre of mass,
+              in the lab frame:{" "}
+              <InlineMath>{String.raw`\Omega = \Omega_M + \omega`}</InlineMath>,
+              averaged over time and over all discs.{" "}
+              <InlineMath>{String.raw`\Omega > 0`}</InlineMath> co-rotates with the
+              swirl; <InlineMath>{String.raw`\Omega < 0`}</InlineMath>{" "}
+              counter-rotates.
+            </div>
+            <div>
+              <span className="font-medium text-zinc-300">
+                N critical (<InlineMath>{String.raw`N_c`}</InlineMath>)
+              </span>{" "}
+              — the number of discs at which{" "}
+              <InlineMath>{String.raw`\Omega`}</InlineMath> first crosses zero, i.e.
+              the tipping point of the co→counter transition.
+            </div>
+          </dl>
         </div>
       </div>
 
       {/* Sliders */}
       <div className="space-y-4 text-sm">
-        <Slider label="Number of discs N" value={P.N} min={3} max={64} step={1} disabled={sweeping}
-          onChange={(v) => setParam("N", v, true)} readout={String(P.N)} />
+        <Slider label="Number of discs N" value={Math.min(P.N, maxN)} min={3} max={maxN} step={1} disabled={sweeping}
+          onChange={(v) => setParam("N", v, true)} readout={`${Math.min(P.N, maxN)} / ${maxN} max`} />
         <Slider label="Swirl rate ω" value={P.swirlDeg} min={15} max={120} step={1} disabled={sweeping}
           onChange={(v) => setParam("swirlDeg", v, false)} readout={`${P.swirlDeg.toFixed(0)} °/s`} />
         <Slider label="Ball mass m" value={P.m} min={0.2} max={3} step={0.1} disabled={sweeping}
@@ -753,12 +976,12 @@ export default function PancakeSimulator() {
         <div>
           <div className="mb-2 text-xs font-semibold uppercase tracking-widest text-zinc-500">View</div>
           <div className="inline-flex w-full rounded-lg border border-zinc-800 bg-zinc-900/50 p-1">
-            {(["container", "lab"] as const).map((f) => (
+            {(["mframe", "dish", "lab"] as const).map((f) => (
               <button key={f} onClick={() => setFrame(f)}
-                className={`flex-1 rounded-md py-1.5 font-medium transition-colors ${
+                className={`flex-1 rounded-md py-1.5 text-xs font-medium transition-colors ${
                   frame === f ? "bg-violet-500/20 text-violet-200" : "text-zinc-400 hover:text-zinc-200"
                 }`}>
-                {f === "container" ? "Container" : "Lab"} frame
+                {f === "mframe" ? "M-frame" : f === "dish" ? "Dish frame" : "Lab frame"}
               </button>
             ))}
           </div>
