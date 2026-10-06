@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef } from "react";
+import { Fragment, useCallback, useEffect, useRef } from "react";
 
 // The view pane of a small shuttle: one full-screen <canvas> plus a DOM
 // layer for the nameplate, the three section beacons, and the flight HUD.
@@ -198,6 +198,7 @@ export default function StarfieldPlasma() {
   const promptRef = useRef<HTMLParagraphElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const beaconRefs = useRef<(HTMLAnchorElement | null)[]>([null, null, null]);
+  const aimRefs = useRef<(HTMLAnchorElement | null)[]>([null, null, null]);
   const hoverRef = useRef(-1);
   const keyRefs = useRef<Record<Key, HTMLSpanElement | null>>({
     w: null,
@@ -896,6 +897,13 @@ export default function StarfieldPlasma() {
           const chev = a.lastElementChild as HTMLElement | null;
           if (chev) chev.style.transform = `rotate(${Math.atan2(ddy, ddx)}rad)`;
         }
+        const aim = aimRefs.current[i];
+        if (aim) {
+          const show = !behind && onPane(ix, iy, 12);
+          aim.style.transform = `translate(${ix.toFixed(1)}px, ${iy.toFixed(1)}px) translate(-50%, -50%)`;
+          if (show) aim.removeAttribute("hidden");
+          else aim.setAttribute("hidden", "");
+        }
       });
     };
 
@@ -1363,44 +1371,68 @@ export default function StarfieldPlasma() {
         }}
       />
 
-      {/* Beacons: the three sections as sky waypoints. */}
+      {/* Beacons: the three sections as sky waypoints. The aim reticle is a
+          second hit target on the same route; the label remains the one in
+          the tab order. */}
       {BEACONS.map((b, i) => (
-        <a
-          key={b.href}
-          href={b.href}
-          ref={(el) => {
-            beaconRefs.current[i] = el;
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            go(b.href);
-          }}
-          onPointerEnter={() => {
-            hoverRef.current = i;
-          }}
-          onPointerLeave={() => {
-            hoverRef.current = -1;
-          }}
-          onFocus={() => {
-            hoverRef.current = i;
-          }}
-          onBlur={() => {
-            hoverRef.current = -1;
-          }}
-          className="group/b pointer-events-auto fixed top-0 left-0 z-20 flex items-center gap-2 rounded-sm px-1 py-0.5 whitespace-nowrap outline-none select-none will-change-transform focus-visible:ring-1 focus-visible:ring-cyan-300"
-          style={{ transform: "translate(-999px, -999px)" }}
-        >
-          <span className="font-mono text-[10px] tracking-[0.18em] text-zinc-500">{b.index}</span>
-          <span className="font-cosmic text-[12px] font-bold tracking-[0.3em] text-zinc-200 uppercase transition-colors group-hover/b:text-cyan-200 group-focus-visible/b:text-cyan-200 group-data-[clamped]/b:text-zinc-400">
-            {b.label}
-          </span>
-          <span
-            aria-hidden="true"
-            className="hidden text-[11px] leading-none text-zinc-500 group-data-[clamped]/b:inline"
+        <Fragment key={b.href}>
+          <a
+            href={b.href}
+            ref={(el) => {
+              beaconRefs.current[i] = el;
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              go(b.href);
+            }}
+            onPointerEnter={() => {
+              hoverRef.current = i;
+            }}
+            onPointerLeave={() => {
+              hoverRef.current = -1;
+            }}
+            onFocus={() => {
+              hoverRef.current = i;
+            }}
+            onBlur={() => {
+              hoverRef.current = -1;
+            }}
+            className="group/b pointer-events-auto fixed top-0 left-0 z-20 flex items-center gap-2 rounded-sm px-1 py-0.5 whitespace-nowrap outline-none select-none will-change-transform focus-visible:ring-1 focus-visible:ring-cyan-300"
+            style={{ transform: "translate(-999px, -999px)" }}
           >
-            ›
-          </span>
-        </a>
+            <span className="font-mono text-[10px] tracking-[0.18em] text-zinc-500">{b.index}</span>
+            <span className="font-cosmic text-[12px] font-bold tracking-[0.3em] text-zinc-200 uppercase transition-colors group-hover/b:text-cyan-200 group-focus-visible/b:text-cyan-200 group-data-[clamped]/b:text-zinc-400">
+              {b.label}
+            </span>
+            <span
+              aria-hidden="true"
+              className="hidden text-[11px] leading-none text-zinc-500 group-data-[clamped]/b:inline"
+            >
+              ›
+            </span>
+          </a>
+          <a
+            href={b.href}
+            aria-hidden="true"
+            tabIndex={-1}
+            data-aim=""
+            ref={(el) => {
+              aimRefs.current[i] = el;
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              go(b.href);
+            }}
+            onPointerEnter={() => {
+              hoverRef.current = i;
+            }}
+            onPointerLeave={() => {
+              hoverRef.current = -1;
+            }}
+            className="pointer-events-auto fixed top-0 left-0 z-20 h-11 w-11 cursor-pointer will-change-transform"
+            style={{ transform: "translate(-999px, -999px)" }}
+          />
+        </Fragment>
       ))}
 
       {/* Nameplate on the window frame. */}
